@@ -1,79 +1,20 @@
 [
 	{
 		"inputs": [],
-		"name": "autoRegistrationNewUser",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+		"name": "TestNumber",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "_sysMaxPower",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "modifaySystemMaxPower",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "modifaySystemRunningStatus",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_sysTarNum",
-				"type": "uint256"
-			}
-		],
-		"name": "modifaySystemTarifeNumber",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_TestNumber",
-				"type": "uint256"
-			}
-		],
-		"name": "modifayTestNUmber",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_Address",
-				"type": "address"
-			}
-		],
-		"name": "registrationNewUser",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "P",
-				"type": "uint256[]"
-			}
-		],
-		"name": "setUserDataPower",
+		"name": "autoRegistrationNewUser",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -144,6 +85,52 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_sysMaxPower",
+				"type": "uint256"
+			}
+		],
+		"name": "modifaySystemMaxPower",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "modifaySystemRunningStatus",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_sysTarNum",
+				"type": "uint256"
+			}
+		],
+		"name": "modifaySystemTarifeNumber",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_TestNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "modifayTestNUmber",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "numberOfUser",
 		"outputs": [
@@ -154,6 +141,32 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_Address",
+				"type": "address"
+			}
+		],
+		"name": "registrationNewUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "P",
+				"type": "uint256[]"
+			}
+		],
+		"name": "setUserDataPower",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -198,19 +211,6 @@
 	{
 		"inputs": [],
 		"name": "sysTarNum",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "TestNumber",
 		"outputs": [
 			{
 				"internalType": "uint256",
