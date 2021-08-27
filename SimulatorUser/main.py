@@ -18,7 +18,7 @@ PathUserInfo='./ImportData/userInfo.xlsx'
 PathUserSchedule='./ImportData/userSchedule.xlsx'
 PathAbiSC='./SmartConcract/abiSystemControlingConcract.json'
 PathAbiEB='./SmartConcract/abiElectricityBillingConcract.json'
-dt=10
+dt=30
 t=1
 DayName=[0,'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSTDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
 
@@ -101,6 +101,8 @@ xlsxUserSchedule = wbSchedule["User "+str(UserNumber)]
 StrDay=xlsxUserSchedule["B4"].value
 StrHour=xlsxUserSchedule["C4"].value
 
+StrRow=True
+row=4
 
 #----------------------OPEN FOLDER SCHEDULE USER---------------------------------
 while r<23:
@@ -114,8 +116,6 @@ while r<23:
             AvgFlg=1
             StrFlg=True
 
-        row=(Day*24)+Hour+4
-        
         DateTime = xlsxUserSchedule["B"+str(row)].value
         WeekNumber=datetime.date(DateTime).weekday()+1
         print("DATE: "+str(DayName[WeekNumber])+" "+str(DateTime.strftime("%d/%m/%Y")))
@@ -257,11 +257,13 @@ while r<23:
 
         if ((Min==0 or Min==15 or Min==30 or Min==45) and Sec==0):
 
-            try:
-                TarNumPre=(xlsxUserSchedule["C"+str(row)].value)*1
+            if (StrRow==False):
 
-            except:
-                TarNumPre=xlsxUserSchedule["C"+str(row-1)].value
+                StrRow+=1
+            else:
+                StrRow=False
+
+            TarNumPre=xlsxUserSchedule["C"+str(row)].value
 
             xlsxSystemTarifPrices = wbInfo["systemTariffPrices"]
             PriceBuy=xlsxSystemTarifPrices["C"+str(TarNumPre+2)].value
