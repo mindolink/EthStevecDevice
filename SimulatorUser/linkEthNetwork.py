@@ -15,7 +15,7 @@ class systemControling(object):
         abiFile.close()
         self.contract_inst = self.web3.eth.contract(abi=abi,address=self.contractAddress)
         self.blockNumber = self.web3.eth.blockNumber
-        self.gas=400000
+        self.gas=4000000
 
     def getUserIndex(self):
         return self.contract_inst.functions.getUserIndex().call({'from': self.web3.eth.accounts[self.account]})
