@@ -143,8 +143,8 @@ while r<1994:
 
 #-------------Read power pasive production and consumption-------------           
 
-        ReqPdSr=(xlsxUserSchedule["D"+str(Row)].value)
-        ReqPdLd=(xlsxUserSchedule["E"+str(Row)].value)
+        ReqPdSr=(xlsxUserSchedule["E"+str(Row)].value)
+        ReqPdLd=(xlsxUserSchedule["F"+str(Row)].value)
 
         if ReqPdSr>ReqPdLd:
             HomNedEne=False
@@ -156,10 +156,9 @@ while r<1994:
         print ("")
         print("BATTERY SETINGS:")
 
-        SOCsmart=xlsxUserSchedule["F"+str(Row)].value
+        SOCsmart=xlsxUserSchedule["G"+str(Row)].value
         hsb.processBatterySetting(SOCsmart,WeekNumber,Hour,TarNum,TarInt,HomNedEne,SystemNeedEnergy)
         ReqPhsb=hsb.getRequiredPower()
-
 
 #-------------------Read the settings CAR module-------------      
 
@@ -174,13 +173,13 @@ while r<1994:
                 SOCstart=0
 
                 try:
-                    Colume= get_column_letter(7+3*q)
+                    Colume= get_column_letter(8+3*q)
                     BatOn=xlsxUserSchedule[str(Colume)+str(Row)].value
 
-                    Colume= get_column_letter(8+3*q)
+                    Colume= get_column_letter(9+3*q)
                     BatSet=xlsxUserSchedule[str(Colume)+str(Row)].value
 
-                    Colume= get_column_letter(9+3*q)
+                    Colume= get_column_letter(10+3*q)
                     SOCstart=xlsxUserSchedule[str(Colume)+str(Row)].value
 
                 except:
@@ -192,8 +191,8 @@ while r<1994:
                 ReqPcar=np.add(ReqPcar,ReqOnePcar)
 
 
-#-------------------Total power production and consumption-------------      
-        
+#-------------------Network Connection-------------   
+
         ReqPbat=np.add(ReqPcar,ReqPhsb)
 
         ReqArrPower=[0]*5
@@ -219,10 +218,17 @@ while r<1994:
 
 #-------------------Sending data power requirements and wishes in ETH-------------    
 
+        NetCon=(xlsxUserSchedule["D"+str(Row)].value)
+
+        if NetCon=="OFF":
+            SndReqPower[2]=0
+            SndReqPower[3]=0
+            SndReqPower[4]=0
+
         if ethReg.checkBlock():
             ethReg.setUserDataPower(SndReqPower)
         
-
+        
 #-------------------Set system power-------------    
 
         SystemNeedEnergy=ethReg.getSystemNeedEnergy()
@@ -317,7 +323,6 @@ while r<1994:
             SumEin=0
             SumEout=0
 
-
             for q in range(5):
                 if q==0 or q==2:
                     AvgPout+=SumArrGrdPower[q]/NumAvg
@@ -327,7 +332,7 @@ while r<1994:
                     AvgPin+=SumArrGrdPower[q]/NumAvg
                     SumEin+=SumArrGrdEnergy[q]
 
-            sm.safeBasicMeasurements(DateTimeStr, AvgPout, AvgPin, AvgArrTotPower, SumEin, SumEout, SumArrTotEnergy)
+            sm.safeBasicMeasurements(DateTimeStr, AvgPin,AvgPout, AvgArrTotPower,SumEin, SumEout, SumArrTotEnergy)
 
             EnergyMeter=SumEin-SumEout
 
@@ -359,7 +364,6 @@ while r<1994:
         if ((Min==5 or Min==20 or Min==35 or Min==50) and Sec==0):
 
             ethBil.processingBillingForEnergy()
-
 
 
 #-------------------External time-------------------
