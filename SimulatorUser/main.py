@@ -227,7 +227,8 @@ while r<1994:
 
         if ethReg.checkBlock():
             ethReg.setUserDataPower(SndReqPower)
-        
+            
+        ss
         
 #-------------------Set system power-------------    
 
