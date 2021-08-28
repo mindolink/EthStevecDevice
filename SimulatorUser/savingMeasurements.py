@@ -52,7 +52,7 @@ class savingMeasurements(object):
 
         numberOfCell=13
 
-        if NumberOfCars<0:
+        if NumberOfCars!=0:
 
             for q in range (self.NumberOfCars):
                 EnergyWorksheet.cell(row = self.x, column = 14+3*q, value = 'Ecar'+str(self.NumberOfCars)+'[kWh]').font = self.fontStyleWord

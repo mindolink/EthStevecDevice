@@ -93,7 +93,7 @@ while r<1994:
         SystemNeedEnergy=ethReg.getSystemNeedEnergy()
 
         if (StrFlg==True):
-
+            print(NumberOfCars)
             sm=savingMeasurements.savingMeasurements(UserIndex,TestNumber,NumberOfCars)
 
             Sec=0
@@ -126,12 +126,6 @@ while r<1994:
         print("DATE: "+str(DayName[WeekNumber])+" "+str(DateTime.strftime("%d/%m/%Y")))
         print("TIME: "+str(Hour)+":"+str(Min)+":"+str(Sec))
 
-        if Min==0:
-            DateTimeStr=(DateTime.strftime("%d/%m/%Y %H"))+":0"+str(Min)
-        else:
-            DateTimeStr=(DateTime.strftime("%d/%m/%Y %H"))+":"+str(Min)
-
-        
 #-------------Time tariff interval-------------
 
         TarNum=xlsxUserSchedule["C"+str(Row)].value
@@ -290,11 +284,19 @@ while r<1994:
         for q in range (NumberOfCars):
             car[q].updateBatteryValues(dt)
 
+
+#-------------------Sending data energy production and consumption in ETH-------------  
+
+        if ((Min==0 or Min==15 or Min==30 or Min==45) and Sec==dt):
+
+            if Min==0:
+                DateTimeStr=(DateTime.strftime("%d/%m/%Y %H"))+":0"+str(Min)
+            else:
+                DateTimeStr=(DateTime.strftime("%d/%m/%Y %H"))+":"+str(Min)
+
 #-------------------Sending data energy production and consumption in ETH-------------  
 
         if ((Min==0 or Min==15 or Min==30 or Min==45) and Sec==0):
-
-            Row=int(StrRow+(Min/15)+4*((24*Day)+Hour))
 
             xlsxSystemTarifPrices = wbInfo["systemTariffPrices"]
             TarNumPre=xlsxUserSchedule["C"+str(Row)].value
@@ -314,6 +316,7 @@ while r<1994:
             AvgPout=0
             SumEin=0
             SumEout=0
+
 
             for q in range(5):
                 if q==0 or q==2:
@@ -344,20 +347,19 @@ while r<1994:
             SumArrTotPower=[0]*5
 
             NumAvg=0
-            
+
+            Row=int(StrRow+(Min/15)+4*((24*Day)+Hour))
+
+            MonayWalletCent=ethBil.getUserWalletInCent()
+            PriceForEnergyCent=ethBil.getUserFinalEnergyPriceInCent()
+            sm.safeCashBalance(MonayWalletCent, PriceForEnergyCent)
+
 #-------------------Billing for energy production and consumption in ETH-------------------
 
         if ((Min==5 or Min==20 or Min==35 or Min==50) and Sec==0):
 
             ethBil.processingBillingForEnergy()
 
-#-------------------Storing price and wallet data-------------------
-
-        if ((Min==10 or Min==25 or Min==40 or Min==55) and Sec==0):
-
-            MonayWalletCent=ethBil.getUserWalletInCent()
-            PriceForEnergyCent=ethBil.getUserFinalEnergyPriceInCent()
-            sm.safeCashBalance(MonayWalletCent, PriceForEnergyCent)
 
 
 #-------------------External time-------------------
