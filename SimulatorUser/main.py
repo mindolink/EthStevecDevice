@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 
 
-k=1000
+kilo=1000
 nano=1000000000
 a=0
 UserAccount=5
@@ -29,19 +29,12 @@ Hour=0
 Day=0
 
 StrFlg=True
-SecFlg=True
-MinFlg=True
-AvgFlg=True
 
 TarInt=0
 SystemRun=False
 SystemNeedEnergy=False
 EnergyMeter=0
 
-ReqArrPower=[0]*5
-SndArrPower=[0]*5
-GetArrPower=[0]*5
-ActArrPower=[0]*5
 SumArrGrdEnergy=[0]*5
 SumArrGrdPower=[0]*5
 SumArrTotEnergy=[0]*5
@@ -83,13 +76,6 @@ if NumberOfCars>0:
     for q in range (NumberOfCars):
         car[q]=carBattery.carBattery(UserIndex,q,PathUserInfo)
 
-
-#-------------Init propertise EXD module-------------
-
-sm=savingMeasurements.savingMeasurements(UserIndex,TestNumber,NumberOfCars)
-
-
-
 #-------------Read the initial values-------------
 
 
@@ -110,19 +96,31 @@ while r<23:
         SystemRun=ethReg.getSystemRun()
         SystemNeedEnergy=ethReg.getSystemNeedEnergy()
 
-        if (StrFlg==False):
+        if (StrFlg==True):
+
+            sm=savingMeasurements.savingMeasurements(UserIndex,TestNumber,NumberOfCars)
+
+            Sec=0
+            Min=0
+            Hour=0
+            Day=0
 
             StrTime=time.time_ns()
+
             Row=StrRow
-            NumSec=1
+            NumSec=0
+            NumAvg=0
+            StrFlg=False
 
-            RowFlg=True
-            SecFlg=True
-            MinFlg=True
-            AvgFlg=True
-            StrFlg=True
+            EnergyMeter=0
 
+            SumArrGrdEnergy=[0]*5
+            SumArrGrdPower=[0]*5
+            SumArrGrdEnergy=[0]*5
+            SumArrTotPower=[0]*5
+        
 #-------------Read date and time-------------
+
         print(xlsxUserSchedule["B"+str(Row)].value)
         DateTime = xlsxUserSchedule["B"+str(Row)].value
         WeekNumber=datetime.date(DateTime).weekday()+1
@@ -150,6 +148,7 @@ while r<23:
             else:
                 break
 
+
 #-------------Read power pasive production and consumption-------------           
 
         ReqPdSr=(xlsxUserSchedule["D"+str(Row)].value)
@@ -160,6 +159,7 @@ while r<23:
         else:
             HomNedEne=True
 
+
 #-------------------Read the settings HSB module-------------      
         print ("")
         print("BATTERY SETINGS:")
@@ -167,6 +167,7 @@ while r<23:
         SOCsmart=xlsxUserSchedule["F"+str(Row)].value
         hsb.processBatterySetting(SOCsmart,WeekNumber,Hour,TarNum,TarInt,HomNedEne,SystemNeedEnergy)
         ReqPhsb=hsb.getRequiredPower()
+
 
 #-------------------Read the settings CAR module-------------      
 
@@ -198,9 +199,12 @@ while r<23:
                 ReqOnePcar=car[q].getRequiredPower()
                 ReqPcar=np.add(ReqPcar,ReqOnePcar)
 
+
 #-------------------Total power production and consumption-------------      
         
         ReqPbat=np.add(ReqPcar,ReqPhsb)
+
+        ReqArrPower=[0]*5
 
         ReqArrPower[0]=ReqPdSr
         ReqArrPower[1]=ReqPdLd
@@ -210,16 +214,17 @@ while r<23:
 
         print ("")
         print ("REQUAST POWERS:")
-        print("PdSr:"+str(round(ReqArrPower[0]/k,2))+"kW  PdLd:"+str(round(ReqArrPower[1]/k,2))+"kW  PbAvSr:"
-        +str(round(ReqArrPower[2]/k,2))+"kW  PbAvLd:"+str(round(ReqArrPower[3]/k,2))+"kW  PbRqLd:"
-        +str(round(ReqArrPower[4]/k,2))+"kW")
+        print("PdSr:"+str(round(ReqArrPower[0]/kilo,2))+"kW  PdLd:"+str(round(ReqArrPower[1]/kilo,2))+"kW  PbAvSr:"
+        +str(round(ReqArrPower[2]/kilo,2))+"kW  PbAvLd:"+str(round(ReqArrPower[3]/kilo,2))+"kW  PbRqLd:"
+        +str(round(ReqArrPower[4]/kilo,2))+"kW")
+
+
 
 
 #-------------------Control BMS system limitations-------------    
-
+        GetArrPower=ethReg.getUserDataPower()
         bms.processAllParametersAndRestrictions(ReqArrPower,GetArrPower)
         SndReqPower=bms.inputPowerDataInfoForConcract()
-
 
 #-------------------Sending data power requirements and wishes in ETH-------------    
 
@@ -244,9 +249,9 @@ while r<23:
 
         print ("")
         print ("ACTUAL POWERS IN SEGMENT:")
-        print("PdSr:"+str(round(ActArrTotPower[0]/k,2))+"kW  PdLd:"+str(round(ActArrTotPower[1]/k,2))+"kW  PbAvSr:"
-        +str(round(ActArrTotPower[2]/k,2))+"kW  PbAvLd:"+str(round(ActArrTotPower[3]/k,2))+"kW  PbRqLd:"
-        +str(round(ActArrTotPower[4]/k,2))+"kW")
+        print("PdSr:"+str(round(ActArrTotPower[0]/kilo,2))+"kW  PdLd:"+str(round(ActArrTotPower[1]/kilo,2))+"kW  PbAvSr:"
+        +str(round(ActArrTotPower[2]/kilo,2))+"kW  PbAvLd:"+str(round(ActArrTotPower[3]/kilo,2))+"kW  PbRqLd:"
+        +str(round(ActArrTotPower[4]/kilo,2))+"kW")
         print ("")
 
 
@@ -258,13 +263,40 @@ while r<23:
             for q in range (NumberOfCars):
                 car[q].setBatteryPower(puActArrPower)
 
+#-------------------Internal time-------------------
+        
+        NumAvg+=1
+        NumSec+=1
+        Sec+=dt
+
+        if Sec>=60:
+            Min+=1
+            Sec=0
+
+        if Min>=60:
+            Hour+=1
+            Min=0
+
+        if Hour>=24:
+            Day+=1
+            Hour=0
+
+#----------------------Update meausrments------------------------
+
+        SumArrTotEnergy+=np.multiply(ActArrTotPower,dt)
+        SumArrGrdEnergy+=np.multiply(ActArrGrdPower,dt)
+        
+        hsb.updateBatteryValues(dt)
+
+        for q in range (NumberOfCars):
+            car[q].updateBatteryValues(dt)
 
 #-------------------Sending data energy production and consumption in ETH-------------  
 
         if ((Min==0 or Min==15 or Min==30 or Min==45) and Sec==0):
 
             Row=int(StrRow+(Min/15)+4*((24*Day)+Hour))
-            print ("LEEEEP")
+
             xlsxSystemTarifPrices = wbInfo["systemTariffPrices"]
             TarNumPre=xlsxUserSchedule["C"+str(Row)].value
 
@@ -275,10 +307,9 @@ while r<23:
             ethBil.setUserDataEnergy([int(SumArrGrdEnergy[0]),int(SumArrGrdEnergy[1]),int(SumArrGrdEnergy[2]),int(SumArrGrdEnergy[3]),int(SumArrGrdEnergy[4])])
             
        
-
 #-------------------Storing power and energy measurement data------------- 
 
-            AvgArrTotPower=np.divide(SumArrTotPower,AvgFlg)
+            AvgArrTotPower=np.divide(SumArrTotPower,NumAvg)
 
             AvgPin=0
             AvgPout=0
@@ -287,31 +318,33 @@ while r<23:
 
             for q in range(5):
                 if q==0 or q==2:
-                    AvgPout+=SumArrGrdPower[q]/AvgFlg
+                    AvgPout+=SumArrGrdPower[q]/NumAvg
                     SumEout+=SumArrGrdEnergy[q]
 
                 else:
-                    AvgPin+=SumArrGrdPower[q]/AvgFlg
+                    AvgPin+=SumArrGrdPower[q]/NumAvg
                     SumEin+=SumArrGrdEnergy[q]
 
             sm.safeBasicMeasurements(DateTimeStr, AvgPout, AvgPin, AvgArrTotPower, SumEin, SumEout, SumArrTotEnergy)
 
+            EnergyMeter=SumEin-SumEout
 
             if (hsb.BatOn==True):
-                InfoBat=hsb.getBatteryInfo(AvgFlg)
+                InfoBat=hsb.getBatteryInfo(NumAvg)
                 sm.safeHomeBatteryMeasurements(InfoBat)
 
             if (NumberOfCars>0):
                 for q in range (NumberOfCars):
-                    InfoBat=car[q].getBatteryInfo(AvgFlg)
+                    InfoBat=car[q].getBatteryInfo(NumAvg)
                     sm.safeCarBatteryMeasurements(q, InfoBat)
 
             SumArrGrdEnergy=[0]*5
             SumArrTotEnergy=[0]*5
+
             SumArrGrdPower=[0]*5
             SumArrTotPower=[0]*5
 
-            AvgFlg=0
+            NumAvg=0
             
 #-------------------Billing for energy production and consumption in ETH-------------------
 
@@ -327,70 +360,14 @@ while r<23:
             PriceForEnergyCent=ethBil.getUserFinalEnergyPriceInCent()
             sm.safeCashBalance(MonayWalletCent, PriceForEnergyCent)
 
-
-#-------------------Internal time-------------------
-        
-        AvgFlg+=1
-        NumSec+=1
-        Sec+=dt
-
-        if Sec>=60:
-            Min+=1
-            Sec=0
-
-        if Min>=60:
-            Hour+=1
-            Min=0
-
-        if Hour>=24:
-            Day+=1
-            Hour=0
-            
-#----------------------Update meausrments------------------------
-
-        SumArrTotEnergy+=np.multiply(ActArrTotPower,dt)
-        SumArrGrdEnergy+=np.multiply(ActArrGrdPower,dt)
-        
-        hsb.updateBatteryValues(dt)
-
-        for q in range (NumberOfCars):
-            car[q].updateBatteryValues(dt)
-
 #-------------------External time-------------------
-        a=1
+
         while (StrTime+(NumSec*t)*nano>time.time_ns()):
             None
 
-        
+
+#-------------------Waight fort strat program-------------------
     else:
-
-        Sec=0
-        Min=0
-        Hour=0
-        Day=0
-
-        AvgFlg=0
-        StrFlg=False
-
-        SystemRun=False
-        SystemNeedEnergy=False
-
-        EnergyMeter=0
-        
-        ReqArrPower=[0]*5
-        SndArrPower=[0]*5
-        GetArrPower=[0]*5
-        ActArrPower=[0]*5
-
-        ActArrGrdEnergy=[0]*5
-        SumArrGrdPower=[0]*5
-        ActArrTotEnergy=[0]*5
-        SumArrTotPower=[0]*5
-
-        if a==1:
-            savingMeasurements.savingMeasurements(UserIndex,TimeOfTest,NumberOfCars)
-            a=0
-
-        print("System don't work")
-
+        StrFlg=True
         SystemRun=ethReg.getSystemRun()
+        print("System don't work")
