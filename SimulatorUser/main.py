@@ -39,11 +39,15 @@ SumArrGrdPower=[0]*5
 SumArrTotEnergy=[0]*5
 SumArrTotPower=[0]*5
 
+
 #-------------Init LinkEth module-------------
+
 ethReg=linkEthNetwork.systemControling(AddressSCC,PathAbiSCC,Http)
 ethBil=linkEthNetwork.electricityBilling(AddressSCB,PathAbiSCB,Http)
 
+
 #-------------Auto registration in the register of Smart Concract SCC and SCB-------------
+
 if ethReg.getUserIndex()==0:
     ethReg.autoRegistrationNewUser()
     ethBil.autoRegistrationNewUser()
@@ -56,11 +60,14 @@ BlockNumber=ethReg.getBlock()
 
 print(UserIndex)
 
+
 #-------------Init BMS module-------------
+
 bms=batteryManegmentSystem.batteryManegmentSystem()
 
 
 #-------------Init propertise HSB module-------------
+
 hsb=homeStorageBattery.homeStorageBattery(UserIndex,PathUserInfo)
 
 #-------------Init propertise CAR module-------------
@@ -74,6 +81,7 @@ if NumberOfCars>0:
     for q in range (NumberOfCars):
         car[q]=carBattery.carBattery(UserIndex,q,PathUserInfo)
 
+
 #-------------Read the initial values-------------
 
 wbSchedule = load_workbook(filename = PathUserSchedule)
@@ -82,6 +90,7 @@ StrDay=xlsxUserSchedule["B4"].value
 
 StrRow=4
 r=0
+
 
 #-------------Loop program-------------
 
@@ -92,6 +101,7 @@ while r<1994:
         SystemRun=ethReg.getSystemRun()
         SystemNeedEnergy=ethReg.getSystemNeedEnergy()
 
+#-------------Start value vhen system start run-------------
         if (StrFlg==True):
             print(NumberOfCars)
             sm=savingMeasurements.savingMeasurements(UserIndex,TestNumber,NumberOfCars)
@@ -152,7 +162,8 @@ while r<1994:
             HomNedEne=True
 
 
-#-------------------Read the settings HSB module-------------      
+#-------------------Read the settings HSB module-------------
+      
         print ("")
         print("BATTERY SETINGS:")
 
@@ -212,6 +223,7 @@ while r<1994:
 
 
 #-------------------Control BMS system limitations-------------    
+
         GetArrPower=ethReg.getUserDataPower()
         bms.processAllParametersAndRestrictions(ReqArrPower,GetArrPower)
         SndReqPower=bms.inputPowerDataInfoForConcract()
@@ -360,6 +372,17 @@ while r<1994:
 
             ethBil.processingBillingForEnergy()
 
+<<<<<<< Updated upstream
+=======
+
+#-------------------Storing price and wallet data-------------------
+
+        if ((Min==10 or Min==25 or Min==40 or Min==55) and Sec==0):
+
+            MonayWalletCent=ethBil.getUserWalletInCent()
+            PriceForEnergyCent=ethBil.getUserFinalEnergyPriceInCent()
+            sm.safeCashBalance(MonayWalletCent, PriceForEnergyCent)
+>>>>>>> Stashed changes
 
 
 #-------------------External time-------------------
