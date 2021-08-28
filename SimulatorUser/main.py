@@ -115,7 +115,7 @@ while r<1994:
             SumArrTotPower=[0]*5
 
             StrFlg=False
-
+            PreVal=False
         
 #-------------Read date and time-------------
 
@@ -354,17 +354,26 @@ while r<1994:
 
             NumAvg=0
 
-            Row=int(StrRow+(Min/15)+4*((24*Day)+Hour))
 
             MonayWalletCent=ethBil.getUserWalletInCent()
             PriceForEnergyCent=ethBil.getUserFinalEnergyPriceInCent()
-            sm.safeCashBalance(MonayWalletCent, PriceForEnergyCent)
+
+            if PreVal==True:
+                sm.safeCashBalance(MonayWalletCent, PriceForEnergyCent)
+            
+            PreVal=True
+
+
+            Row=int(StrRow+(Min/15)+4*((24*Day)+Hour))
+
+
 
 #-------------------Billing for energy production and consumption in ETH-------------------
 
         if ((Min==5 or Min==20 or Min==35 or Min==50) and Sec==0):
 
             ethBil.processingBillingForEnergy()
+
 
 
 #-------------------External time-------------------

@@ -130,7 +130,7 @@ class homeStorageBattery(object):
                 self.PbAvLd=0
                 self.PbRqLd=0
         else:
-            if (self.Haour>15 and SOC>SOCmin and self.HomNedEne==True and self.SysNedEne==True):
+            if (self.Hour>15 and SOC>SOCmin and self.HomNedEne==True and self.SysNedEne==True):
                 self.PbAvSr=self.PbDh
                 self.PbAvLd=0
                 self.PbRqLd=0

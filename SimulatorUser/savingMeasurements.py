@@ -205,20 +205,11 @@ class savingMeasurements(object):
         PowerWorksheet = wb["PowerMeausurments"]
         EnergyWorksheet= wb["EnergyMeausurments"]
 
-        EnergyWorksheet.cell(row = self.x, column = 3, value = MonayWalletCent/100)
-        EnergyWorksheet.cell(row = self.x, column = 4, value =PriceForEnergyCent/100)
+        EnergyWorksheet.cell(row = self.x-1, column = 3, value = MonayWalletCent/100)
+        EnergyWorksheet.cell(row = self.x-1, column = 4, value =PriceForEnergyCent/100)
 
-        PowerWorksheet.cell(row = self.x, column = 3, value = MonayWalletCent/100)
-        PowerWorksheet.cell(row = self.x, column = 4, value =PriceForEnergyCent/100)
-
-        for q in range (3,5):
-
-            PowerWorksheet.cell(row = self.x, column = q).font = self.fontStyleNumber
-            EnergyWorksheet.cell(row = self.x, column = q).font = self.fontStyleNumber
-            EnergyWorksheet.cell(row = self.x, column = q).alignment=self.alignmentStyle
-            PowerWorksheet.cell(row = self.x, column = q).alignment=self.alignmentStyle
-            EnergyWorksheet.cell(row = self.x, column = q).number_format = '#,##0.00'
-            PowerWorksheet.cell(row = self.x, column = q).number_format = '#,##0.00'
+        PowerWorksheet.cell(row = self.x-1, column = 3, value = MonayWalletCent/100)
+        PowerWorksheet.cell(row = self.x-1, column = 4, value =PriceForEnergyCent/100)
 
         wb.save(filename = self.FilePathName)
         wb.close()
