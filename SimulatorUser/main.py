@@ -9,8 +9,7 @@ from openpyxl.utils import get_column_letter
 
 kilo=1000
 nano=1000000000
-a=0
-UserAccount=5
+
 Http='http://localhost:8545'
 AddressSCB=address.SCB
 AddressSCC=address.SCC
@@ -40,7 +39,7 @@ SumArrGrdPower=[0]*5
 SumArrTotEnergy=[0]*5
 SumArrTotPower=[0]*5
 
-#-------------Init LEP module-------------
+#-------------Init LinkEth module-------------
 ethReg=linkEthNetwork.systemControling(AddressSCC,PathAbiSCC,Http)
 ethBil=linkEthNetwork.electricityBilling(AddressSCB,PathAbiSCB,Http)
 
@@ -49,7 +48,7 @@ if ethReg.getUserIndex()==0:
     ethReg.autoRegistrationNewUser()
     ethBil.autoRegistrationNewUser()
     time.sleep(5)
-                    
+
     
 UserIndex=ethReg.getUserIndex()
 TestNumber=ethReg.getTestNumber()
@@ -64,7 +63,6 @@ bms=batteryManegmentSystem.batteryManegmentSystem()
 #-------------Init propertise HSB module-------------
 hsb=homeStorageBattery.homeStorageBattery(UserIndex,PathUserInfo)
 
-
 #-------------Init propertise CAR module-------------
 
 wbInfo = load_workbook(filename = PathUserInfo)
@@ -78,18 +76,16 @@ if NumberOfCars>0:
 
 #-------------Read the initial values-------------
 
-
 wbSchedule = load_workbook(filename = PathUserSchedule)
 xlsxUserSchedule = wbSchedule["User "+str(UserIndex)]
 StrDay=xlsxUserSchedule["B4"].value
 
 StrRow=4
-
 r=0
 
 #-------------Loop program-------------
 
-while r<23:
+while r<1994:
     
     if SystemRun==True:
         
@@ -110,14 +106,16 @@ while r<23:
             Row=StrRow
             NumSec=0
             NumAvg=0
-            StrFlg=False
-
+            
             EnergyMeter=0
 
             SumArrGrdEnergy=[0]*5
             SumArrGrdPower=[0]*5
             SumArrGrdEnergy=[0]*5
             SumArrTotPower=[0]*5
+
+            StrFlg=False
+
         
 #-------------Read date and time-------------
 
@@ -219,12 +217,11 @@ while r<23:
         +str(round(ReqArrPower[4]/kilo,2))+"kW")
 
 
-
-
 #-------------------Control BMS system limitations-------------    
         GetArrPower=ethReg.getUserDataPower()
         bms.processAllParametersAndRestrictions(ReqArrPower,GetArrPower)
         SndReqPower=bms.inputPowerDataInfoForConcract()
+
 
 #-------------------Sending data power requirements and wishes in ETH-------------    
 
@@ -263,6 +260,7 @@ while r<23:
             for q in range (NumberOfCars):
                 car[q].setBatteryPower(puActArrPower)
 
+
 #-------------------Internal time-------------------
         
         NumAvg+=1
@@ -280,6 +278,7 @@ while r<23:
         if Hour>=24:
             Day+=1
             Hour=0
+
 
 #----------------------Update meausrments------------------------
 
@@ -359,6 +358,7 @@ while r<23:
             MonayWalletCent=ethBil.getUserWalletInCent()
             PriceForEnergyCent=ethBil.getUserFinalEnergyPriceInCent()
             sm.safeCashBalance(MonayWalletCent, PriceForEnergyCent)
+
 
 #-------------------External time-------------------
 
