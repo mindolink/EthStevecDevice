@@ -145,7 +145,7 @@ contract electricityBillingConcract {
             
             if (Esum[0]>0)
             {            
-                puPro=(N*sysProFinalCost)/Esum[0];
+                puPro=(N*sysProFinalCost)/(Esum[0]*nS1Ws);
             }
             else
             {
@@ -168,7 +168,7 @@ contract electricityBillingConcract {
             
             if (Esum[1]>0)
             {
-                puCon=(N*sysConFinalCost)/Esum[1];
+                puCon=(N*sysConFinalCost)/((Esum[1]+Esum[4])*nB1Ws);
             }
             else
             {
