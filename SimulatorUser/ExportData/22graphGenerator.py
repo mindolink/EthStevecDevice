@@ -131,24 +131,33 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
     with plt.style.context(['science']):
 
-        fig, axs = plt.subplots(2, 2,figsize=(13,11),constrained_layout=True)
+        plt.rcParams["font.family"] = "serif"
+        plt.rcParams["font.serif"] = "Times New Roman"
+
+
+        fig, axs = plt.subplots(2, 2,figsize=(13.6,8),constrained_layout=True)
+
 
         for q in range (4):
             if q<2:
                 drawingPowerGraph(axs[0][q],UserData[q],PowerLow,PowerHigh)
-                axs[0][q].set_title('UPORABNIK '+str(ArrUserNumber[q]),fontsize=12)
+                axs[0][q].set_title('UPORABNIK '+str(ArrUserNumber[q]),fontsize=16)
             
             else:
                 drawingPowerGraph(axs[1][q-2],UserData[q],PowerLow,PowerHigh)
-                axs[1][q-2].set_title('UPORABNIK '+str(ArrUserNumber[q]),fontsize=12)
+                axs[1][q-2].set_title('UPORABNIK '+str(ArrUserNumber[q]),fontsize=16)
 
 
             if q==3:
-                axs[1][q-2].legend(loc="lower right", borderaxespad=0.5,fontsize=12)
+                axs[1][q-2].legend(loc="lower right", borderaxespad=0.5,fontsize=11)
 
         fig.set_constrained_layout_pads(hspace=0.05)
 
+        plt.savefig("2222test.svg", format="svg")
+
         plt.show()
+
+        
 
 
 def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -183,7 +192,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
     with plt.style.context(['science']):
     
-        fig, ax = plt.subplots(figsize=(11,8),constrained_layout=True)
+        fig, ax = plt.subplots(figsize=(13,8),constrained_layout=True)
         drawingPowerGraph(ax,SystemData,PowerLow,PowerHigh)
         ax.legend(loc="lower right", borderaxespad=0.5,fontsize=12)
         plt.show()
@@ -192,25 +201,25 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
 
 
-    axs.fill_between(UserData[0],UserData[3], step="pre", alpha=0.3,label="PdSr")
-    axs.plot(UserData[0],UserData[3],drawstyle="steps", alpha=1)
+    axs.fill_between(UserData[0],UserData[3], step="pre", alpha=0.3)
+    axs.plot(UserData[0],UserData[3],drawstyle="steps", alpha=1,label="PdSr")
 
-    axs.fill_between(UserData[0],UserData[5], step="pre", alpha=0.3,label="PdSr")
-    axs.plot(UserData[0],UserData[5],drawstyle="steps", alpha=1)
+    axs.fill_between(UserData[0],UserData[5], step="pre", alpha=0.3)
+    axs.plot(UserData[0],UserData[5],drawstyle="steps", alpha=1,label="PdSr")
 
-    axs.fill_between(UserData[0],UserData[6], step="pre", alpha=0.3,label="PbAvLd")
-    axs.plot(UserData[0],UserData[6],drawstyle="steps", alpha=1)
+    axs.fill_between(UserData[0],UserData[6], step="pre", alpha=0.3)
+    axs.plot(UserData[0],UserData[6],drawstyle="steps", alpha=1,label="PbAvLd")
 
-    axs.fill_between(UserData[0],UserData[4], step="pre", alpha=0.3,label="PdLd")
-    axs.plot(UserData[0],UserData[4],drawstyle="steps", alpha=1)
+    axs.fill_between(UserData[0],UserData[4], step="pre", alpha=0.3)
+    axs.plot(UserData[0],UserData[4],drawstyle="steps", alpha=1,label="PdLd")
 
-    axs.fill_between(UserData[0],UserData[7], step="pre", alpha=0.3,label="PbRqLd")
-    axs.plot(UserData[0],UserData[7],drawstyle="steps", alpha=1)
+    axs.fill_between(UserData[0],UserData[7], step="pre", alpha=0.3)
+    axs.plot(UserData[0],UserData[7],drawstyle="steps", alpha=1,label="PbRqLd")
 
     Pgrd=np.add(UserData[1],UserData[2])
 
-    axs.fill_between(UserData[0],Pgrd, step="pre", alpha=0.3,label="PbRqLd")
-    axs.plot(UserData[0],Pgrd,drawstyle="steps", alpha=1)
+    axs.fill_between(UserData[0],Pgrd, step="pre", alpha=0.3)
+    axs.plot(UserData[0],Pgrd,drawstyle="steps", alpha=1,label="Pgrd")
     
 
     axs.set_xlim(UserData[0][0],UserData[0][len(UserData[0])-1])
@@ -230,7 +239,7 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
     axs.set_ylim([1.1*PowerLow,1.1*PowerHigh])
 
 
-def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh):
+def drawingPowerSystemGraph(axs,UserData,PowerLow,PowerHigh):
 
     axs.plot(UserData[0],UserData[1],drawstyle="steps",color='blue',linewidth=2)
 
@@ -251,6 +260,6 @@ FileDirecotory="./"
 TestNumber=5
 DateTime="01/02/2022 00:30"
 
-drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
 
  
