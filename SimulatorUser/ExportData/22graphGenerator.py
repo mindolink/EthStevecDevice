@@ -29,6 +29,10 @@ def readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumb
     PbRqLd=[0]*97
     IntTime=[0]*97
 
+    SOChsb=[0]*97
+    SOCcar=[0]*97
+
+
     for q in range(97):
         Pout[q] -= xlsxPowerMeasurments["E"+str(row+q)].value
         Pin[q] = xlsxPowerMeasurments["F"+str(row+q)].value
@@ -38,8 +42,10 @@ def readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumb
         PbAvLd[q] = xlsxPowerMeasurments["J"+str(row+q)].value
         PbRqLd[q] = xlsxPowerMeasurments["K"+str(row+q)].value
         IntTime[q]= xlsxPowerMeasurments["B"+str(row+q)].value
+        SOChsb[q] = xlsxPowerMeasurments["M"+str(row+q)].value
+        SOCcar[q]= xlsxPowerMeasurments["O"+str(row+q)].value
 
-        matrixUserData=[IntTime,Pout,Pin,PdSr,PdLd,PbAvSr,PbAvLd,PbRqLd]
+        matrixUserData=[IntTime,Pout,Pin,PdSr,PdLd,PbAvSr,PbAvLd,PbRqLd,SOChsb,SOCcar]
 
     return(matrixUserData)
 
@@ -76,8 +82,6 @@ def readUserEnergyData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNum
 
 def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
 
-    fig, axs = plt.subplots(2, 2,figsize=(13,11),constrained_layout=True)
-
     UserData=[0]*4
     PriceLow=0
     PriceHigh=0
@@ -96,17 +100,33 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
                 if PriceKWH>PriceHigh:
                     PriceHigh=PriceKWH
 
-    for q in range (4):
-        if q<2:
-            drawingPriceGraph(axs[0][q],UserData[q],PriceLow,PriceHigh)
-            axs[0][q].set_title('UPORABNIK '+str(ArrUserNumber[q]),fontsize=12)
-        
-        else:
-            drawingPriceGraph(axs[1][q-2],UserData[q],PriceLow,PriceHigh)
-            axs[1][q-2].set_title('UPORABNIK '+str(ArrUserNumber[q]),fontsize=12)
+    with plt.style.context(['science', 'grid']):
+
+        fig, axs = plt.subplots(2, 2,figsize=(13.6,8),constrained_layout=True)
+
+        for q in range (4):
+
+            UserLabel=chr(64+(ArrUserNumber[q]))
+
+            if q<2:
+                drawingPriceGraph(axs[0][q],UserData[q],PriceLow,PriceHigh)
+                axs[0][q].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
+            
+            else:
+                drawingPriceGraph(axs[1][q-2],UserData[q],PriceLow,PriceHigh)
+                axs[1][q-2].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
 
 
-    plt.show()
+            if q==3:
+                axs[1][q-2].legend(loc="lower left", borderaxespad=0.5,fontsize=14,fancybox=True, shadow=True, ncol=3, bbox_to_anchor=(0.6, 0.025))
+
+
+            #plt.rcParams["font.family"] = "serif"
+            #plt.rcParams["font.serif"] = "Times New Roman"
+
+
+        fig.set_constrained_layout_pads(hspace=0.07)
+        plt.show()
 
 
 def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -129,37 +149,40 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
                 if Power>PowerHigh:
                     PowerHigh=Power
 
-    with plt.style.context(['science']):
+    with plt.style.context(['science', 'grid']):
 
-        plt.rcParams["font.family"] = "serif"
-        plt.rcParams["font.serif"] = "Times New Roman"
-
-
+   
+    
         fig, axs = plt.subplots(2, 2,figsize=(13.6,8),constrained_layout=True)
 
 
         for q in range (4):
+
+            UserLabel=chr(64+(ArrUserNumber[q]))
+
             if q<2:
                 drawingPowerGraph(axs[0][q],UserData[q],PowerLow,PowerHigh)
-                axs[0][q].set_title('UPORABNIK '+str(ArrUserNumber[q]),fontsize=16)
+                axs[0][q].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
             
             else:
                 drawingPowerGraph(axs[1][q-2],UserData[q],PowerLow,PowerHigh)
-                axs[1][q-2].set_title('UPORABNIK '+str(ArrUserNumber[q]),fontsize=16)
+                axs[1][q-2].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
 
 
             if q==3:
-                axs[1][q-2].legend(loc="lower right", borderaxespad=0.5,fontsize=11)
+                axs[1][q-2].legend(loc="lower left", borderaxespad=0.5,fontsize=14,fancybox=True, shadow=True, ncol=3, bbox_to_anchor=(0.2, 0.025))
 
-        fig.set_constrained_layout_pads(hspace=0.05)
+            plt.rcParams["font.family"] = "serif"
+            plt.rcParams["font.serif"] = "Times New Roman"
 
-        plt.savefig("2222test.svg", format="svg")
+
+        fig.set_constrained_layout_pads(hspace=0.07)
+
+        #plt.savefig("2222test.svg", format="svg")
 
         plt.show()
 
         
-
-
 def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
 
     NumberOfUser=len(ArrUserNumber)
@@ -190,11 +213,11 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
                 PowerHigh=Power
  
 
-    with plt.style.context(['science']):
+    with plt.style.context(['science', 'grid']):
     
-        fig, ax = plt.subplots(figsize=(13,8),constrained_layout=True)
+        fig, ax = plt.subplots(figsize=(12,8),constrained_layout=True)
         drawingPowerGraph(ax,SystemData,PowerLow,PowerHigh)
-        ax.legend(loc="lower right", borderaxespad=0.5,fontsize=12)
+        ax.legend(loc="lower right", borderaxespad=0.5,fontsize=14,fancybox=True, shadow=True, ncol=1, bbox_to_anchor=(0.99, 0.015))
         plt.show()
 
 
@@ -230,36 +253,85 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
 
     axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.2)
 
-    axs.set_xlabel('Ura [h]',fontsize=16)
-    axs.set_ylabel('P [kW]',fontsize=16)
+    axs.set_xlabel('Ura [h]',fontsize=18)
+    axs.set_ylabel('P [kW]',fontsize=18)
 
-    axs.xaxis.set_tick_params(labelsize=16)
-    axs.yaxis.set_tick_params(labelsize=16)
+    axs.xaxis.set_tick_params(labelsize=18)
+    axs.yaxis.set_tick_params(labelsize=18)
 
     axs.set_ylim([1.1*PowerLow,1.1*PowerHigh])
 
 
-def drawingPowerSystemGraph(axs,UserData,PowerLow,PowerHigh):
+def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh):
 
-    axs.plot(UserData[0],UserData[1],drawstyle="steps",color='blue',linewidth=2)
+    axs.plot(UserData[0],[0]*len(UserData[0]),color="black",drawstyle="steps",linewidth=0.5)
+    axs.plot(UserData[0],UserData[1],drawstyle="steps",linewidth=1,label="Cena agregatorja")
+    
 
     axs.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
     axs.xaxis.set_major_locator(mdates.HourLocator(interval = 4))
     axs.yaxis.set_major_locator(MaxNLocator(integer=True))
     axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.2)
 
-    axs.set_xlabel('Ura [h]',fontsize=11)
-    axs.set_ylabel('¢/kWh',fontsize=11)
+    axs.set_xlabel('Ura [h]',fontsize=18)
+    axs.set_ylabel('¢/kWh',fontsize=18)
 
     axs.set_xlim(UserData[0][0],UserData[0][len(UserData[0])-1])
-    axs.set_ylim([1.1*PowerLow,1.1*PowerHigh])
+
+    axs.xaxis.set_tick_params(labelsize=18)
+    axs.yaxis.set_tick_params(labelsize=18)
     
+    
+    axs.set_ylim(-32,32)
+
+def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
+
+    NumberOfUser=len(ArrUserNumber)
+
+    with plt.style.context(['science', 'grid']):
+
+        fig, ax = plt.subplots(figsize=(12,8),constrained_layout=True)
+
+        for q in range (NumberOfUser):
+            Data=readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,q+1)
+            SOChsb=Data[8]
+            SOCcar=Data[9]
+            Time=Data[0]
+
+            if SOChsb[0]!=None:
+                ax.plot(Time,SOChsb, alpha=1,label="SOChsb"+str(chr(65+q)))
+
+            if SOCcar[0]!=None:
+                ax.plot(Time,SOCcar,drawstyle="steps", alpha=1,label="SOCcar"+str(chr(65+q)))
+
+
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
+        ax.xaxis.set_major_locator(mdates.HourLocator(interval = 4))
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+        ax.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.2)
+
+        ax.set_xlabel('Ura [h]',fontsize=18)
+        ax.set_ylabel('SOC [%]',fontsize=18)
+
+        ax.set_xlim(Time[0],Time[len(Time)-1])
+
+        ax.xaxis.set_tick_params(labelsize=18)
+        ax.yaxis.set_tick_params(labelsize=18)
+        
+        ax.legend(loc="lower right", borderaxespad=0.5,fontsize=14,fancybox=True, shadow=True, ncol=1, bbox_to_anchor=(0.99, 0.74))
+        plt.show()
+
+
+
+
+
+
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=5
+TestNumber=4
 DateTime="01/02/2022 00:30"
 
-drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
 
  
