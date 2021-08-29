@@ -47,7 +47,9 @@ ethBil=linkEthNetwork.electricityBilling(AddressSCB,PathAbiSCB,Http)
 if ethReg.getUserIndex()==0:
     ethReg.autoRegistrationNewUser()
     ethBil.autoRegistrationNewUser()
-    time.sleep(5)
+    time.sleep(10)
+    print("Wait ............")
+
 
     
 UserIndex=ethReg.getUserIndex()
