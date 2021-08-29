@@ -44,7 +44,7 @@ class homeStorageBattery(object):
 
         wb.close()
  
-        self.SOC=0.3
+        self.SOC=0
 
         self.Pavg=0
         self.Wavg=0         #Avarage power 
@@ -130,7 +130,7 @@ class homeStorageBattery(object):
                 self.PbAvLd=0
                 self.PbRqLd=0
         else:
-            if (self.Hour>15 and SOC>SOCmin and self.HomNedEne==True and self.SysNedEne==True):
+            if (self.Hour>15 and self.SOC>=self.SOCmin and self.HomNedEne==True and self.SysNedEne==True ):
                 self.PbAvSr=self.PbDh
                 self.PbAvLd=0
                 self.PbRqLd=0
