@@ -34,8 +34,8 @@ def readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumb
 
 
     for q in range(97):
-        Pout[q] -= xlsxPowerMeasurments["E"+str(row+q)].value
-        Pin[q] = xlsxPowerMeasurments["F"+str(row+q)].value
+        Pout[q] -= xlsxPowerMeasurments["F"+str(row+q)].value
+        Pin[q] = xlsxPowerMeasurments["E"+str(row+q)].value
         PdSr[q] -= xlsxPowerMeasurments["G"+str(row+q)].value
         PdLd[q] = xlsxPowerMeasurments["H"+str(row+q)].value
         PbAvSr[q] -= xlsxPowerMeasurments["I"+str(row+q)].value
@@ -67,8 +67,8 @@ def readUserEnergyData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNum
     for q in range(97):
 
         Price[q]= xlsxPowerMeasurments["D"+str(row+q)].value
-        Wout[q] = xlsxPowerMeasurments["E"+str(row+q)].value
-        Win[q] = xlsxPowerMeasurments["F"+str(row+q)].value
+        Wout[q] = xlsxPowerMeasurments["F"+str(row+q)].value
+        Win[q] = xlsxPowerMeasurments["E"+str(row+q)].value
         IntTime[q]= xlsxPowerMeasurments["B"+str(row+q)].value
 
         if Wout[q]!=0 or Win[q]!=0:
@@ -329,9 +329,9 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=4
+TestNumber=503
 DateTime="01/02/2022 00:30"
 
-drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
 
  
