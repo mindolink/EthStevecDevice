@@ -18,7 +18,7 @@ PathUserSchedule='./ImportData/userSchedule.xlsx'
 PathAbiSCC='./SmartConcract/abiSystemControlingConcract.json'
 PathAbiSCB='./SmartConcract/abiElectricityBillingConcract.json'
 
-dt=30
+dt=5
 t=1
 DayName=[0,'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSTDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
 
