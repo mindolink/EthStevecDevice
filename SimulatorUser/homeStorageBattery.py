@@ -111,15 +111,15 @@ class homeStorageBattery(object):
         if (self.WeekNumber<6):
             if (self.SOC<self.SOCsmart and (self.Hour<6 or 21<self.Hour)):
                 dtWb=(self.SOCsmart-self.SOC)*self.Wb
-                P=dtWb/(self.TarInt*0.9)
+                P=dtWb/(self.TarInt*0.65)
                 if P<self.PbCh:
                     self.PbAvSr=0
                     self.PbAvLd=self.PbCh-P
                     self.PbRqLd=P
                 else:
                     self.PbAvSr=0
-                    self.PbAvLd=self.PbCh
-                    self.PbRqLd=0
+                    self.PbAvLd=0
+                    self.PbRqLd=self.PbCh
 
             elif (self.SOC<self.SOCmax):
                 self.PbAvSr=0
