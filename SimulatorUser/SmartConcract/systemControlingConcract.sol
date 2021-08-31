@@ -15,10 +15,10 @@ contract systemRegulationSmartConcract
     address OwnAddress;
     
     //Informtion about system/grid
-    uint public sysMaxPower=15000;   //[W]
+    uint public sysMaxPower=100000;   //[W]
     uint public sysTarNum;
     bool public sysRunSta;
-    uint public TestNumber;
+    uint public TestNumber=71;
 
     //Users information
     mapping (uint=>address) usrAddress;

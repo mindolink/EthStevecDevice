@@ -333,3 +333,4 @@ TestNumber=905
 DateTime="01/02/2022 00:30"
 
 drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
