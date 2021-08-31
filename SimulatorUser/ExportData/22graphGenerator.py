@@ -302,7 +302,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
                 ax.plot(Time,SOChsb, alpha=1,label="SOChsb"+str(chr(65+q)))
 
             if SOCcar[0]!=None:
-                ax.plot(Time,SOCcar,drawstyle="steps", alpha=1,label="SOCcar"+str(chr(65+q)))
+                ax.plot(Time,SOCcar, alpha=1,label="SOCcar"+str(chr(65+q)))
 
 
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
@@ -329,9 +329,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=603
+TestNumber=905
 DateTime="01/02/2022 00:30"
 
-drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-
- 
+drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
