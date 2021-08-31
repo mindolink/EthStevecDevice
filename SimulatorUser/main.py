@@ -18,7 +18,7 @@ PathUserSchedule='./ImportData/userSchedule.xlsx'
 PathAbiSCC='./SmartConcract/abiSystemControlingConcract.json'
 PathAbiSCB='./SmartConcract/abiElectricityBillingConcract.json'
 
-dt=5
+dt=15
 t=1
 DayName=[0,'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSTDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
 
@@ -82,7 +82,7 @@ wbSchedule = load_workbook(filename = PathUserSchedule)
 xlsxUserSchedule = wbSchedule["User "+str(UserIndex)]
 StrDay=xlsxUserSchedule["B4"].value
 
-StrRow=4
+StrRow=68
 r=0
 
 #-------------Loop program-------------
