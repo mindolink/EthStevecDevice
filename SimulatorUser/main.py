@@ -366,7 +366,7 @@ while r<1994:
             PreVal=True
 
 
-            Row=int(StrRow+(Min/15)+4*((24*Day)+Hour))
+            Row+=1
 
 
 
