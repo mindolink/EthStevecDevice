@@ -209,12 +209,12 @@ contract electricityBillingConcract {
     
     function getUserFinalEnergyPriceInCent() public view returns(int)
     {
-        return(usrEnergyPriceNanoCent[msg.sender]/nano);
+        return(usrEnergyPriceNanoCent[msg.sender]);
     }
     
     function getUserWalletInCent() public view returns(int)
     {
-        return(usrWalletNanoCent[msg.sender]/nano);
+        return(usrWalletNanoCent[msg.sender]);
     }
     
         function getUserIndex() public view returns(uint) 
