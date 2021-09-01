@@ -24,7 +24,7 @@ DayName=[0,'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSTDAY', 'FRIDAY', 'SATURDAY', 
 
 Sec=0
 Min=0
-Hour=0
+Hour=16
 Day=0
 
 StrFlg=True
@@ -100,7 +100,7 @@ while r<1994:
 
             Sec=0
             Min=0
-            Hour=0
+            Hour=16
             Day=0
 
             StrTime=time.time_ns()
