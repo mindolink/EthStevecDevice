@@ -191,6 +191,7 @@ class homeStorageBattery(object):
             self.SOC=(((self.SOC*self.Wb)+self.Wcur)/self.Wb)
             self.Wsum+=self.Pcur*dt
         
+        
     def getBatteryInfo(self,Flg):
 
         self.Pavg=self.Psum/Flg
