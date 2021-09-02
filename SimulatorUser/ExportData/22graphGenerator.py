@@ -314,6 +314,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
         ax.set_ylabel('SOC [%]',fontsize=18)
 
         ax.set_xlim(Time[0],Time[len(Time)-1])
+        ax.set_ylim(0,100)
 
         ax.xaxis.set_tick_params(labelsize=18)
         ax.yaxis.set_tick_params(labelsize=18)
@@ -329,7 +330,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=223
+TestNumber=403
 DateTime="01/02/2022 00:30"
 
 #drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
