@@ -57,7 +57,7 @@ def readUserEnergyData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNum
     wb = load_workbook(filename = FolderPath)
     xlsxPowerMeasurments = wb["EnergyMeausurments"]
 
-    row=101
+    row=36
     Price=[0]*97
     Wout=[0]*97
     Win=[0]*97
@@ -72,7 +72,7 @@ def readUserEnergyData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNum
         IntTime[q]= xlsxPowerMeasurments["B"+str(row+q)].value
 
         if Wout[q]!=0 or Win[q]!=0:
-            PriceKWH[q]=(100*Price[q])/(Wout[q]+Win[q])
+            PriceKWH[q]=(100*Price[q])/(Wout[q]+Win[q])/1000000000
         else:
             PriceKWH[q]=0
 
@@ -329,9 +329,10 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=503
+TestNumber=223
 DateTime="01/02/2022 00:30"
 
 #drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
 #drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
 drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)

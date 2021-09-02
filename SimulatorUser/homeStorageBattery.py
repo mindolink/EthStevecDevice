@@ -111,7 +111,7 @@ class homeStorageBattery(object):
         if (self.WeekNumber<6):
             if (self.SOC<self.SOCsmart and (self.Hour<6 or 21<self.Hour)):
                 dtWb=(self.SOCsmart-self.SOC)*self.Wb
-                P=1.20*(dtWb/(self.TarInt))
+                P=1.15*(dtWb/(self.TarInt))
                 if P<self.PbCh:
                     self.PbAvSr=0
                     self.PbAvLd=self.PbCh-P
@@ -190,6 +190,7 @@ class homeStorageBattery(object):
             self.Wcur=(self.Pcur*self.EffDh*dt)/3600
             self.SOC=(((self.SOC*self.Wb)+self.Wcur)/self.Wb)
             self.Wsum+=self.Pcur*dt
+        
         
     def getBatteryInfo(self,Flg):
 
