@@ -142,6 +142,7 @@ while r<1994:
             else:
                 break
 
+        TarIntHour=TarInt/4 #Convert to hour
 
 #-------------Read power pasive production and consumption-------------           
 
@@ -159,7 +160,7 @@ while r<1994:
         print("BATTERY SETINGS:")
 
         SOCsmart=xlsxUserSchedule["G"+str(Row)].value
-        hsb.processBatterySetting(SOCsmart,WeekNumber,Hour,TarNum,TarInt,HomNedEne,SystemNeedEnergy)
+        hsb.processBatterySetting(SOCsmart,WeekNumber,Hour,TarNum,TarIntHour,HomNedEne,SystemNeedEnergy)
         ReqPhsb=hsb.getRequiredPower()
 
 #-------------------Read the settings CAR module-------------      

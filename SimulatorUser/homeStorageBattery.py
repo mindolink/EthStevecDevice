@@ -109,9 +109,9 @@ class homeStorageBattery(object):
 
     def settingsTariff1(self):
         if (self.WeekNumber<6):
-            if (self.SOC<self.SOCsmart and (self.Hour<6 or 21<self.Hour)):
+            if (self.SOC<self.SOCsmart):
                 dtWb=(self.SOCsmart-self.SOC)*self.Wb
-                P=1.20*(dtWb/(self.TarInt))
+                P=1.1*(dtWb/(self.TarInt))
                 if P<self.PbCh:
                     self.PbAvSr=0
                     self.PbAvLd=self.PbCh-P
