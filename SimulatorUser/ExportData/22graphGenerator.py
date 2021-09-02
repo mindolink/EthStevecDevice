@@ -329,10 +329,10 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=223
+TestNumber=403
 DateTime="01/02/2022 00:30"
 
 #drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
 #drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-#drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
