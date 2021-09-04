@@ -9,6 +9,7 @@ import matplotlib.dates as mdates
 from matplotlib.ticker import MaxNLocator
 import matplotlib.lines as mlines
 from matplotlib.ticker import MultipleLocator
+from matplotlib.transforms import BlendedGenericTransform
 
 import numpy as np
 
@@ -169,13 +170,16 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
                 axs[1][q-2].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
 
 
-            if q==3:
-                axs[1][q-2].legend(loc="lower left", borderaxespad=0.5,fontsize=14,fancybox=True, shadow=True, ncol=3, bbox_to_anchor=(0.2, 0.025))
 
             plt.rcParams["font.family"] = "serif"
             plt.rcParams["font.serif"] = "Times New Roman"
 
 
+        legendEntries = ("a","bcdefg","h")
+        # set figure legend entries, number of columns, location
+        axs[0][0].legend(loc = 'lower left',
+            bbox_to_anchor = [0.5, -0.6],ncol=6)
+    
         fig.set_constrained_layout_pads(hspace=0.07)
 
         #plt.savefig("2222test.svg", format="svg")
@@ -217,7 +221,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
     
         fig, ax = plt.subplots(figsize=(12,8),constrained_layout=True)
         drawingPowerGraph(ax,SystemData,PowerLow,PowerHigh)
-        ax.legend(loc="lower right", borderaxespad=0.5,fontsize=14,fancybox=True, shadow=True, ncol=1, bbox_to_anchor=(0.99, 0.015))
+        ax.legend(borderaxespad=0.5,fontsize=20,fancybox=True, shadow=True, ncol=1, bbox_to_anchor=(1.05, 1), loc='upper left')
         plt.show()
 
 
@@ -328,12 +332,12 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 
 
-SelectedUser=[1,2,3,4]
+SelectedUser=[1,2,3,1]
 FileDirecotory="./"
-TestNumber=5
+TestNumber=1
 DateTime="01/02/2022 00:30"
 
 drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
