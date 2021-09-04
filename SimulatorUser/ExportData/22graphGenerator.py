@@ -286,7 +286,7 @@ def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh):
     axs.yaxis.set_tick_params(labelsize=18)
     
     
-    axs.set_ylim(-32,32)
+    axs.set_ylim(-24,24)
 
 def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
 
@@ -332,12 +332,12 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 
 
-SelectedUser=[1,2,3,1]
+SelectedUser=[1,2,3,4]
 FileDirecotory="./"
 TestNumber=1
 DateTime="01/02/2022 00:30"
 
-drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
 #drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
 #drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-#drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
