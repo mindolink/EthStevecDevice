@@ -246,7 +246,7 @@ def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh):
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=5
+TestNumber=4
 DateTime="01/02/2022 00:30"
 
 drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
