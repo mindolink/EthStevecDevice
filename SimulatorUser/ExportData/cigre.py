@@ -119,7 +119,7 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
 
             if q==3:
-                axs[1][q-2].legend(bbox_to_anchor=(1.04,0), loc="lower left",ncol=1,fontsize=18)
+                axs[1][q-2].legend(loc="lower left", borderaxespad=0.5,fontsize=14,fancybox=True, shadow=True, ncol=3, bbox_to_anchor=(0.6, 0.025))
 
 
             #plt.rcParams["font.family"] = "serif"
@@ -127,8 +127,7 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
 
         fig.set_constrained_layout_pads(hspace=0.07)
-        #plt.show()
-        plt.savefig("Test "+str(TestNumber)+" PRC.svg", format="svg")
+        plt.show()
 
 
 def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -178,14 +177,14 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
         legendEntries = ("a","bcdefg","h")
         # set figure legend entries, number of columns, location
-        axs[1][1].legend(bbox_to_anchor=(1.04,0), loc="lower left",ncol=1,fontsize=18)
+        axs[0][0].legend(loc = 'lower left',
+            bbox_to_anchor = [0.5, -0.6],ncol=6)
     
         fig.set_constrained_layout_pads(hspace=0.07)
 
         #plt.savefig("2222test.svg", format="svg")
-        plt.savefig("Test "+str(TestNumber)+" POW.svg", format="svg")
 
-        #plt.show()
+        plt.show()
 
         
 def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -222,16 +221,18 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
     
         fig, ax = plt.subplots(figsize=(12,8),constrained_layout=True)
         drawingPowerGraph(ax,SystemData,PowerLow,PowerHigh)
-        ax.legend(bbox_to_anchor=(1.04,0), loc="lower left",ncol=1,fontsize=18)
-        #plt.show()
+        ax.legend(borderaxespad=0.5,fontsize=20,fancybox=True, shadow=True, ncol=1, bbox_to_anchor=(1.05, 1), loc='upper left')
+        plt.show()
 
-        plt.savefig("Test "+str(TestNumber)+" SYS.svg", format="svg")
 
 def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
 
+    out = np.add(UserData[7], UserData[4])  
+
+
 
     axs.fill_between(UserData[0],UserData[3], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[3],drawstyle="steps", alpha=1,label="PdSr")
+    axs.plot(UserData[0],UserData[3],drawstyle="steps", alpha=1,label="PdAvSr")
 
     axs.fill_between(UserData[0],UserData[5], step="pre", alpha=0.3)
     axs.plot(UserData[0],UserData[5],drawstyle="steps", alpha=1,label="PdSr")
@@ -239,16 +240,14 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
     axs.fill_between(UserData[0],UserData[6], step="pre", alpha=0.3)
     axs.plot(UserData[0],UserData[6],drawstyle="steps", alpha=1,label="PbAvLd")
 
-    axs.fill_between(UserData[0],UserData[4], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[4],drawstyle="steps", alpha=1,label="PdLd")
+    axs.fill_between(UserData[0],out, step="pre", alpha=0.3)
+    axs.plot(UserData[0],out,drawstyle="steps", alpha=1,label="PdLd")
 
-    axs.fill_between(UserData[0],UserData[7], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[7],drawstyle="steps", alpha=1,label="PbRqLd")
 
     Pgrd=np.add(UserData[1],UserData[2])
 
-    axs.fill_between(UserData[0],Pgrd, step="pre", alpha=0.3)
-    axs.plot(UserData[0],Pgrd,drawstyle="steps", alpha=1,label="Pgrd")
+    axs.fill_between(UserData[0],Pgrd, step="pre", alpha=0.3, color='black')
+    axs.plot(UserData[0],Pgrd,drawstyle="steps", alpha=1,label="Pgrd", color='black')
     
 
     axs.set_xlim(UserData[0][0],UserData[0][len(UserData[0])-1])
@@ -265,7 +264,7 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
     axs.xaxis.set_tick_params(labelsize=18)
     axs.yaxis.set_tick_params(labelsize=18)
 
-    axs.set_ylim([1.1*PowerLow,1.1*PowerHigh])
+    axs.set_ylim([1.1*PowerLow,60])
 
 
 def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh):
@@ -289,8 +288,6 @@ def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh):
     
     
     axs.set_ylim(-24,24)
-
-    
 
 def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
 
@@ -327,10 +324,8 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
         ax.xaxis.set_tick_params(labelsize=18)
         ax.yaxis.set_tick_params(labelsize=18)
         
-        ax.legend(bbox_to_anchor=(1.04,0), loc="lower left",ncol=1,fontsize=18)
-        #plt.show()
-
-        plt.savefig("Test "+str(TestNumber)+" SOC.svg", format="svg")
+        ax.legend(loc="lower right", borderaxespad=0.5,fontsize=14,fancybox=True, shadow=True, ncol=1, bbox_to_anchor=(0.99, 0.74))
+        plt.show()
 
 
 
@@ -340,10 +335,10 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=5
+TestNumber=403
 DateTime="01/02/2022 00:30"
 
-drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
 drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
