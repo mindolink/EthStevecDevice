@@ -128,7 +128,7 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
         fig.set_constrained_layout_pads(hspace=0.07)
         #plt.show()
-        plt.savefig("Test "+str(TestNumber)+" PRC.svg", format="svg")
+        plt.savefig("Test "+str(TestNumber)+" PRC.jpg", format="jpg")
 
 
 def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -183,7 +183,7 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         fig.set_constrained_layout_pads(hspace=0.07)
 
         #plt.savefig("2222test.svg", format="svg")
-        plt.savefig("Test "+str(TestNumber)+" POW.svg", format="svg")
+        plt.savefig("Test "+str(TestNumber)+" POW.jpg", format="jpg")
 
         #plt.show()
 
@@ -225,7 +225,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         ax.legend(bbox_to_anchor=(1.04,0), loc="lower left",ncol=1,fontsize=18)
         #plt.show()
 
-        plt.savefig("Test "+str(TestNumber)+" SYS.svg", format="svg")
+        plt.savefig("Test "+str(TestNumber)+" SYS.jpg", format="jpg")
 
 def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
 
@@ -234,7 +234,7 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
     axs.plot(UserData[0],UserData[3],drawstyle="steps", alpha=1,label="PdSr")
 
     axs.fill_between(UserData[0],UserData[5], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[5],drawstyle="steps", alpha=1,label="PdSr")
+    axs.plot(UserData[0],UserData[5],drawstyle="steps", alpha=1,label="PbAvSr")
 
     axs.fill_between(UserData[0],UserData[6], step="pre", alpha=0.3)
     axs.plot(UserData[0],UserData[6],drawstyle="steps", alpha=1,label="PbAvLd")
@@ -330,20 +330,21 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
         ax.legend(bbox_to_anchor=(1.04,0), loc="lower left",ncol=1,fontsize=18)
         #plt.show()
 
-        plt.savefig("Test "+str(TestNumber)+" SOC.svg", format="svg")
+        plt.savefig("Test "+str(TestNumber)+" SOC.jpg", format="jpg")
 
 
 
 
 
 
+for i in range (1,6):
 
-SelectedUser=[1,2,3,4]
-FileDirecotory="./"
-TestNumber=5
-DateTime="01/02/2022 00:30"
+    SelectedUser=[1,2,3,4]
+    FileDirecotory="./"
+    TestNumber=i
+    DateTime="01/02/2022 00:30"
 
-drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
