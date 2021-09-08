@@ -151,48 +151,48 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
                 if Power>PowerHigh:
                     PowerHigh=Power
 
-    with plt.style.context(['science', 'grid']):
 
    
+    plt.style.use('ggplot')
 
 
+    ax=[0]*4
 
+    for q in range (4):
 
+        UserLabel=chr(64+(ArrUserNumber[q]))
 
-        fig, axs = plt.subplots(3, 2,figsize=(13.6,8),constrained_layout=True)
+        if q<2:
 
+            ax[q] = plt.subplot(221)
 
-        for q in range (4):
-
-            UserLabel=chr(64+(ArrUserNumber[q]))
-
-            if q<2:
-                drawingPowerGraph(axs[0][q],UserData[q],PowerLow,PowerHigh)
-                axs[0][q].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
-                box = axs[0][q].get_position()
-                axs[0][q].set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
+            drawingPowerGraph(ax[q],UserData[q],PowerLow,PowerHigh)
+            ax[q].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
+            box = ax[q].get_position()
+            ax[q].set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
             
-            else:
-                drawingPowerGraph(axs[1][q-2],UserData[q],PowerLow,PowerHigh)
-                axs[1][q-2].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
-                axs[0][q].set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
+        else:
+            ax[q] = plt.subplot(111)
+            drawingPowerGraph(ax[q],UserData[q],PowerLow,PowerHigh)
+            ax[q].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
+            box = ax[q].get_position()
+            ax[q].set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
+            
+
+        plt.rcParams["font.family"] = "serif"
+        plt.rcParams["font.serif"] = "Times New Roman"
 
 
-
-            plt.rcParams["font.family"] = "serif"
-            plt.rcParams["font.serif"] = "Times New Roman"
-
-
-        legendEntries = ("a","bcdefg","h")
+        #legendEntries = ("a","bcdefg","h")
         # set figure legend entries, number of columns, location
-        drawingPowerGraph(axs[2][q-2],UserData[q],PowerLow,PowerHigh)
+        #drawingPowerGraph(axs[2][q-2],UserData[q],PowerLow,PowerHigh)
     
-        fig.set_constrained_layout_pads(hspace=0.07)
+        #fig.set_constrained_layout_pads(hspace=0.07)
 
         #plt.savefig("2222test.svg", format="svg")
         #plt.savefig("Test "+str(TestNumber)+" POW.jpg", format="jpg")
 
-        plt.show()
+    plt.show()
 
         
 def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -347,7 +347,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=2
+TestNumber=3
 DateTime="01/02/2022 00:30"
 
 drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
