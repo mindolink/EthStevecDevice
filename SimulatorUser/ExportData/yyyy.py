@@ -1,7 +1,9 @@
 from datetime import datetime
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
-
+import math
+import matplotlib.ticker as plticker
+import matplotlib.ticker as ticker
 
 import datetime
 import matplotlib.pyplot as plt
@@ -153,42 +155,36 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
     with plt.style.context(['science', 'grid']):
 
-   
+        gridsize = (26, 2)
+        fig = plt.figure(figsize=(14, 10),constrained_layout=True)
 
 
+        ax1=plt.subplot2grid(gridsize,(0, 0), colspan=1, rowspan=11)
+        ax2=plt.subplot2grid(gridsize,(0, 1), colspan=1, rowspan=11)
+        ax3=plt.subplot2grid(gridsize,(12, 0), colspan=1, rowspan=11)
+        ax4=plt.subplot2grid(gridsize,(12, 1), colspan=1, rowspan=11)
 
+        drawingPowerGraph(ax1,UserData[0],PowerLow,PowerHigh)
+        ax1.set_title('ODJEMALEC A',fontsize=18)
 
+        drawingPowerGraph(ax2,UserData[1],PowerLow,PowerHigh)
+        ax2.set_title('ODJEMALEC B',fontsize=18)
 
-        fig, axs = plt.subplots(3, 2,figsize=(13.6,8),constrained_layout=True)
+        drawingPowerGraph(ax3,UserData[2],PowerLow,PowerHigh)
+        ax3.set_title('ODJEMALEC C',fontsize=18)
 
+        drawingPowerGraph(ax4,UserData[3],PowerLow,PowerHigh)
+        ax4.set_title('ODJEMALEC D',fontsize=18)
 
-        for q in range (4):
+        handles, labels = ax4.get_legend_handles_labels()
+        fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.07),ncol=6,fontsize=18)
 
-            UserLabel=chr(64+(ArrUserNumber[q]))
+        fig.set_constrained_layout_pads(hspace=0.4)
 
-            if q<2:
-                drawingPowerGraph(axs[0][q],UserData[q],PowerLow,PowerHigh)
-                axs[0][q].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
-                box = axs[0][q].get_position()
-                axs[0][q].set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
-            
-            else:
-                drawingPowerGraph(axs[1][q-2],UserData[q],PowerLow,PowerHigh)
-                axs[1][q-2].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
-                axs[0][q].set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
+        plt.rcParams["font.family"] = "serif"
+        plt.rcParams["font.serif"] = "Times New Roman"
 
-
-
-            plt.rcParams["font.family"] = "serif"
-            plt.rcParams["font.serif"] = "Times New Roman"
-
-
-        legendEntries = ("a","bcdefg","h")
-        # set figure legend entries, number of columns, location
-        drawingPowerGraph(axs[2][q-2],UserData[q],PowerLow,PowerHigh)
-    
-        fig.set_constrained_layout_pads(hspace=0.07)
-
+        
         #plt.savefig("2222test.svg", format="svg")
         #plt.savefig("Test "+str(TestNumber)+" POW.jpg", format="jpg")
 
@@ -237,43 +233,54 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh):
 
 
-    axs.fill_between(UserData[0],UserData[3], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[3],drawstyle="steps", alpha=1,label="PdSr")
+    axs.fill_between(UserData[0],UserData[3], step="pre", color="#2C71B0",alpha=0.15)
+    axs.plot(UserData[0],UserData[3],drawstyle="steps", color="#2C71B0", alpha=1,label="PdSr")
 
-    axs.fill_between(UserData[0],UserData[5], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[5],drawstyle="steps", alpha=1,label="PbAvSr")
+    axs.fill_between(UserData[0],UserData[4], step="pre", color="#FF4822",alpha=0.15)
+    axs.plot(UserData[0],UserData[4],drawstyle="steps",color="#FF4822",alpha=1,label=(u"P$\\{dLd}$"))
 
-    axs.fill_between(UserData[0],UserData[6], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[6],drawstyle="steps", alpha=1,label="PbAvLd")
+    axs.fill_between(UserData[0],UserData[5], step="pre", color="#14be53",alpha=0.15)
+    axs.plot(UserData[0],UserData[5],drawstyle="steps", color="#14be53", alpha=1,label="PbAvSr")
 
-    axs.fill_between(UserData[0],UserData[4], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[4],drawstyle="steps", alpha=1,label="PdLd")
+    axs.fill_between(UserData[0],UserData[6], step="pre", color="orange", alpha=0.20)
+    axs.plot(UserData[0],UserData[6],drawstyle="steps", color="orange",alpha=1,label="PbAvLd")
 
-    axs.fill_between(UserData[0],UserData[7], step="pre", alpha=0.3)
-    axs.plot(UserData[0],UserData[7],drawstyle="steps", alpha=1,label="PbRqLd")
+    axs.fill_between(UserData[0],UserData[7], step="pre",color="#AA64CC", alpha=0.15)
+    axs.plot(UserData[0],UserData[7],drawstyle="steps", color="#AA64CC" , alpha=0.8,label="PbRqLd")
+
 
     Pgrd=np.add(UserData[1],UserData[2])
 
-    axs.fill_between(UserData[0],Pgrd, step="pre", alpha=0.3)
-    axs.plot(UserData[0],Pgrd,drawstyle="steps", alpha=1,label="Pgrd")
+    axs.fill_between(UserData[0],Pgrd, step="pre",color="#555555", alpha=0.18)
+    axs.plot(UserData[0],Pgrd, drawstyle="steps",color="#555555", alpha=1,label="Pgrd")
     
 
     axs.set_xlim(UserData[0][0],UserData[0][len(UserData[0])-1])
 
     axs.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
     axs.xaxis.set_major_locator(mdates.HourLocator(interval = 2))
-    axs.yaxis.set_major_locator(MaxNLocator(integer=True))
-
-    axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.2)
+    
+    axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.13)
 
     axs.set_xlabel('Ura [h]',fontsize=18)
     axs.set_ylabel('P [kW]',fontsize=18)
 
+
     axs.xaxis.set_tick_params(labelsize=18)
     axs.yaxis.set_tick_params(labelsize=18)
 
-    axs.set_ylim([1.1*PowerLow,1.1*PowerHigh])
+    vzr=6
 
+    PowerHigh=1.1*math.ceil(PowerHigh)
+    PowerLow=1.1*math.floor(PowerLow)
+
+    
+    axs.set_ylim([PowerLow,PowerHigh])
+
+    axs.yaxis.set_major_locator(MaxNLocator(integer=True))
+    axs.locator_params(axis="y", nbins=7)
+
+  
 
 def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh):
 
@@ -347,7 +354,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
-TestNumber=2
+TestNumber=5
 DateTime="01/02/2022 00:30"
 
 drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)

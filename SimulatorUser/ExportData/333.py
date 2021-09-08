@@ -169,7 +169,8 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
             if q<2:
                 drawingPowerGraph(axs[0][q],UserData[q],PowerLow,PowerHigh)
                 axs[0][q].set_title('UPORABNIK '+str(UserLabel),fontsize=18)
-                box = axs[0][q].get_position()
+                box = axs[0][q]
+                .get_position()
                 axs[0][q].set_position([box.x0, box.y0 + box.height * 0.1, box.width, box.height * 0.9])
             
             else:
