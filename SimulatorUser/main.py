@@ -21,7 +21,7 @@ PathAbiSCB='./SmartConcract/abiElectricityBillingConcract.json'
 dt=15
 t=1
 DayName=[0,'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSTDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
-
+##
 Sec=0
 Min=0
 Hour=16
