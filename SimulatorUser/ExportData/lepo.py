@@ -390,13 +390,13 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
         #plt.show()
 
-SelectedUser=[1,2,3,4]
+SelectedUser=[1,1,1,1]
 FileDirecotory="./"
 DateTime="01/02/2022 00:30"
 
-for i in range (1,6):
-    TestNumber=i
-    drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
-    drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-    drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-    drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+#for i in range (1,6):
+TestNumber=3030
+drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
