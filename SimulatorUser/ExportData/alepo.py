@@ -4,7 +4,7 @@ from openpyxl.utils import get_column_letter
 import math
 import matplotlib.ticker as plticker
 import matplotlib.ticker as ticker
-
+import numpy
 import datetime
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -223,10 +223,12 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
     with plt.style.context(['science', 'grid']):
     
-        fntSize=20
+        SystemData[4]=numpy.add(SystemData[4],SystemData[7])
+
+        fntSize=24
 
         gridsize = (26, 24)
-        fig = plt.figure(figsize=(14, 6),constrained_layout=True)
+        fig = plt.figure(figsize=(14, 8),constrained_layout=True)
 
         ax=plt.subplot2grid(gridsize,(0, 3), colspan=18, rowspan=22)
 
@@ -259,8 +261,6 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
     axs.fill_between(UserData[0],UserData[6], step="pre", color="orange", alpha=0.20)
     axs.plot(UserData[0],UserData[6],drawstyle="steps", color="orange",alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvLd}}$'))
 
-    axs.fill_between(UserData[0],UserData[7], step="pre",color="#dd37cc", alpha=0.20)
-    axs.plot(UserData[0],UserData[7],drawstyle="steps", color="#dd37cc" , alpha=0.8,linewidth=1.2,label=(r'$\mathrm{P_{bRqLd}}$'))
 
     Pgrd=np.add(UserData[1],UserData[2])
 
@@ -281,7 +281,7 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
     axs.xaxis.set_tick_params(labelsize=fntSize)
     axs.yaxis.set_tick_params(labelsize=fntSize)
 
-    PowerHigh=1.1*math.ceil(PowerHigh)
+    PowerHigh=60.00000
     PowerLow=1.1*math.floor(PowerLow)
 
     axs.set_ylim([PowerLow,PowerHigh])
@@ -390,9 +390,11 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
         #plt.show()
 
+
 SelectedUser=[1,2,3,4]
 FileDirecotory="./"
 DateTime="01/02/2022 00:30"
+
 
 for i in range (1,6):
     TestNumber=i
