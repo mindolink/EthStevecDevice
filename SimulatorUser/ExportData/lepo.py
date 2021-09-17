@@ -125,7 +125,7 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         ax4.set_title('ODJEMALEC D',fontsize=fntSize)
 
         handles, labels = ax4.get_legend_handles_labels()
-        leg=fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.1),ncol=6,fontsize=fntSize+6,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3)
+        leg=fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.1),ncol=6,fontsize=fntSize+4,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3, frameon=False)
         leg.get_frame().set_linewidth(0.5)
         fig.set_constrained_layout_pads(hspace=0.4)
 
@@ -179,7 +179,8 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         ax4.set_title('ODJEMALEC D',fontsize=fntSize)
 
         handles, labels = ax4.get_legend_handles_labels()
-        leg=fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.1),ncol=6,fontsize=fntSize+6,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3)
+        leg=fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.1),ncol=6,fontsize=fntSize+4,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3, frameon=False)
+        
         leg.get_frame().set_linewidth(0.5)
         fig.set_constrained_layout_pads(hspace=0.4)
 
@@ -211,7 +212,6 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
                 for x in range (len(UserData[0])):
                     SystemData[y][x]+=UserData[y][x]
 
-
     for y in range (1,8):
         for x in range (len(SystemData[0])):
             Power=SystemData[y][x]
@@ -223,22 +223,29 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
     with plt.style.context(['science', 'grid']):
     
-        fntSize=20
+        fntSize=24
 
         gridsize = (26, 24)
-        fig = plt.figure(figsize=(14, 6),constrained_layout=True)
-
-        ax=plt.subplot2grid(gridsize,(0, 3), colspan=18, rowspan=22)
+        fig = plt.figure(figsize=(14, 7),constrained_layout=True)
+        ax=plt.subplot2grid(gridsize,(0, 1), colspan=22, rowspan=23)
 
         drawingPowerGraph(ax,SystemData,PowerLow,PowerHigh,fntSize)
         
         handles, labels = ax.get_legend_handles_labels()
-        leg=fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.145),ncol=6,fontsize=fntSize+6,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3)
+        leg=fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.11),ncol=6,fontsize=fntSize+6,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3, frameon=False)
+
+        ax.set_ylabel('P [kW]',fontsize=fntSize)
+        ax.set_xlabel('Ura [h]',fontsize=fntSize)
+
+        ax.xaxis.set_tick_params(labelsize=fntSize)
+        ax.yaxis.set_tick_params(labelsize=fntSize)
+        
         leg.get_frame().set_linewidth(0.5)
         fig.set_constrained_layout_pads(hspace=0.4)
 
         plt.rcParams["font.family"] = "serif"
         plt.rcParams["font.serif"] = "Times New Roman"
+
 
         plt.savefig("Test "+str(TestNumber)+" EnergySystem.jpg", format="jpg")
 
@@ -310,10 +317,13 @@ def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
 
     axs.set_xlabel('Ura [h]',fontsize=fntSize)
     axs.set_ylabel('Cena EE [¢/kWh]',fontsize=fntSize)
-
+        
+    plt.rcParams["font.family"] = "serif"
+    plt.rcParams["font.serif"] = "Times New Roman"
 
     axs.xaxis.set_tick_params(labelsize=fntSize)
     axs.yaxis.set_tick_params(labelsize=fntSize)
+
 
     PowerHigh=1.1*math.ceil(PowerHigh)
     PowerLow=1.1*math.floor(PowerLow)
@@ -325,8 +335,7 @@ def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
 
     axs.set_ylim(-23.5,23.5)
 
-    
-
+ 
 def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
 
     NumberOfUser=len(ArrUserNumber)
@@ -335,11 +344,11 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
         colorArray=["#2C71B0","#FF4822","#14be53","orange","#dd37cc","#555555"]
     
-        fntSize=20
+        fntSize=24
 
         gridsize = (26, 24)
-        fig = plt.figure(figsize=(14, 6),constrained_layout=True)
-        ax=plt.subplot2grid(gridsize,(0, 3), colspan=18, rowspan=22)
+        fig = plt.figure(figsize=(14, 7),constrained_layout=True)
+        ax=plt.subplot2grid(gridsize,(0, 1), colspan=22, rowspan=23)
 
         i=0
 
@@ -352,34 +361,34 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
             
             if SOChsb[0]!=None:
 
-                lab="{$\mathrm{SOC_{BH"+str(chr(65+q))+"}"+"}"+"$}"
+                lab="{$\mathrm{SBH_{"+str(chr(65+q))+"}"+"}"+"$}"
                 
                 ax.plot(Time,SOChsb, alpha=1,label=lab,color=colorArray[i],linewidth=1.2)
                 i+=1
             if SOCcar[0]!=None:
 
-                lab="{$\mathrm{SOC_{EV"+str(chr(65+q))+"}"+"}"+"$}"
+                lab="{$\mathrm{SEV_{"+str(chr(65+q))+"}"+"}"+"$}"
 
                 ax.plot(Time,SOCcar, alpha=1,label=lab,color=colorArray[i],linewidth=1.2)
                 i+=1
 
 
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
-        ax.xaxis.set_major_locator(mdates.HourLocator(interval = 4))
+        ax.xaxis.set_major_locator(mdates.HourLocator(interval = 2))
         ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-        ax.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.2)
+        ax.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.25)
 
-        ax.set_xlabel('Ura [h]',fontsize=fntSize)
-        ax.set_ylabel("SOC [%]",fontsize=fntSize)
 
+        leg=fig.legend(loc='upper center', bbox_to_anchor=(0.5,0.11),ncol=6,fontsize=fntSize,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3, frameon=False)
+       
         ax.set_xlim(Time[0],Time[len(Time)-1])
         ax.set_ylim(0.1,100)
+        ax.set_ylabel('Napolnjenost baterije [\%]',fontsize=fntSize)
+        ax.set_xlabel('Ura [h]',fontsize=fntSize)
 
         ax.xaxis.set_tick_params(labelsize=fntSize)
         ax.yaxis.set_tick_params(labelsize=fntSize)
-        
 
-        leg=fig.legend(loc='upper center', bbox_to_anchor=(0.5,0.145),ncol=6,fontsize=fntSize+4,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3)
         leg.get_frame().set_linewidth(0.5)
         fig.set_constrained_layout_pads(hspace=0.4)
 
@@ -387,16 +396,17 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
         plt.rcParams["font.serif"] = "Times New Roman"
 
         plt.savefig("Test "+str(TestNumber)+" SOC.jpg", format="jpg")
-
         #plt.show()
+
+
 
 SelectedUser=[1,1,1,1]
 FileDirecotory="./"
 DateTime="01/02/2022 00:30"
 
-#for i in range (1,6):
-TestNumber=3030
-drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+for i in range (1,6):
+    TestNumber=i
+    drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
