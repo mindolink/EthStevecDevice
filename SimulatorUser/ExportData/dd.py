@@ -134,7 +134,7 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
         plt.savefig("Test "+str(TestNumber)+" Price.jpg", format="jpg")
 
-        #plt.show()
+        plt.show()
 
 
 def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -189,7 +189,7 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
         plt.savefig("Test "+str(TestNumber)+" Energy4User.jpg", format="jpg")
 
-        #plt.show()
+        plt.show()
 
         
 def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -199,7 +199,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
     PowerLow=0
     PowerHigh=0
     
-    for q in range (1):
+    for q in range (NumberOfUser):
 
         UserNumber=ArrUserNumber[q]
         UserData=readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumber)
@@ -255,24 +255,24 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
 
 
     axs.fill_between(UserData[0],UserData[3], step="post", color="#2C71B0",alpha=0.20)
-    axs.step(UserData[0],UserData[3],label='pre', color="#2C71B0", alpha=1,linewidth=1.2)
+    axs.plot(UserData[0],UserData[3],drawstyle="steps-post", color="#2C71B0", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dSr}}$'))
 
-    #axs.fill_between(UserData[0],UserData[4], step="post", color="#FF4822",alpha=0.20)
-    #axs.plot(UserData[0],UserData[4],drawstyle="steps",color="#FF4822",alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dLd}}$'))
+    axs.fill_between(UserData[0],UserData[4], step="post", color="#FF4822",alpha=0.20)
+    axs.plot(UserData[0],UserData[4],drawstyle="steps-post", color="#FF4822", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dLd}}$'))
 
-    #axs.fill_between(UserData[0],UserData[5], step="post", color="#14be53",alpha=0.20)
-    #axs.plot(UserData[0],UserData[5],drawstyle="steps", color="#14be53", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvSr}}$'))
+    axs.fill_between(UserData[0],UserData[5], step="post", color="#14be53",alpha=0.20)
+    axs.plot(UserData[0],UserData[5],drawstyle="steps-post", color="#14be53", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvSr}}$'))
 
-    #axs.fill_between(UserData[0],UserData[6], step="post", color="orange", alpha=0.20)
-    #axs.plot(UserData[0],UserData[6],drawstyle="steps", color="orange",alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvLd}}$'))
+    axs.fill_between(UserData[0],UserData[6], step="post", color="#ffaf00",alpha=0.20)
+    axs.plot(UserData[0],UserData[6],drawstyle="steps-post", color="#ffaf00", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvLd}}$'))
 
-    #axs.fill_between(UserData[0],UserData[7], step="post",color="#dd37cc", alpha=0.20)
-    #axs.plot(UserData[0],UserData[7],drawstyle="steps", step="post", color="#dd37cc" , alpha=0.8,linewidth=1.2,label=(r'$\mathrm{P_{bRqLd}}$'))
+    axs.fill_between(UserData[0],UserData[7], step="post",color="#dd37cc", alpha=0.20)
+    axs.plot(UserData[0],UserData[7],drawstyle="steps-post", color="#dd37cc", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvLd}}$'))
 
     Pgrd=np.add(UserData[1],UserData[2])
 
-    #axs.fill_between(UserData[0],Pgrd, step="post",color="#555555", alpha=0.18)
-    #axs.plot(UserData[0],Pgrd, drawstyle="steps",color="#555555", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{grd}}$'))
+    axs.fill_between(UserData[0],Pgrd, step="post",color="#555555", alpha=0.18)
+    axs.plot(UserData[0],Pgrd, drawstyle="steps-post",color="#555555", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{grd}}$'))
     
     axs.set_xlim(UserData[0][0],UserData[0][len(UserData[0])-1])
 
@@ -300,7 +300,7 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
 def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
 
     axs.plot(UserData[0],[0]*len(UserData[0]),color="black",drawstyle="steps",linewidth=0.5)
-    axs.plot(UserData[0],UserData[1],drawstyle="steps", color="blue" , alpha=0.8,linewidth=1.2,label='Cena AGR')
+    axs.plot(UserData[0],UserData[1],drawstyle="steps-post", color="blue" , alpha=0.8,linewidth=1.2,label='Cena AGR')
     
 
     axs.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
@@ -396,7 +396,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
         plt.rcParams["font.serif"] = "Times New Roman"
 
         plt.savefig("Test "+str(TestNumber)+" SOC.jpg", format="jpg")
-        #plt.show()
+        plt.show()
 
 
 
