@@ -201,7 +201,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
     PowerLow=0
     PowerHigh=0
     
-    for q in range (1):
+    for q in range (4):
 
         UserNumber=ArrUserNumber[q]
         UserData=readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumber)
@@ -257,7 +257,11 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
 
     let=len(UserData[0])
 
+    axs.fill_between(UserData[0],UserData[3], step="post", color="#4b96da",alpha=0.20)
+    axs.plot(UserData[0],UserData[3],drawstyle="steps-post", color="#4b96da", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dSr}}$'))
 
+    axs.fill_between(UserData[0],UserData[4], step="post", color="#ff5430",alpha=0.20)
+    axs.plot(UserData[0],UserData[4],drawstyle="steps-post", color="#ff5430", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dLd}}$'))
 
     axs.fill_between(UserData[0],UserData[5], step="post", color="#14be53",alpha=0.20)
     axs.plot(UserData[0],UserData[5],drawstyle="steps-post", color="#14be53", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvSr}}$'))
@@ -268,11 +272,6 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
     axs.fill_between(UserData[0],UserData[7], step="post",color="#f538d3", alpha=0.20)
     axs.plot(UserData[0],UserData[7],drawstyle="steps-post", color="#f538d3", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvLd}}$'))
 
-    axs.fill_between(UserData[0],UserData[4], step="post", color="#ff5430",alpha=0.20)
-    axs.plot(UserData[0],UserData[4],drawstyle="steps-post", color="#ff5430", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dLd}}$'))
-
-    axs.fill_between(UserData[0],UserData[3], step="post", color="#4b96da",alpha=0.20)
-    axs.plot(UserData[0],UserData[3],drawstyle="steps-post", color="#4b96da", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dSr}}$'))
 
     Pgrd=np.add(UserData[1],UserData[2])
 
@@ -413,8 +412,8 @@ SelectedUser=[1,2,3,4]
 FileDirecotory="./"
 DateTime="01/02/2022 00:30"
 
-for i in range (1,2):
-    TestNumber=3030
+for i in range (1,6):
+    TestNumber=i
     drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
     drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
     drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
