@@ -22,7 +22,7 @@ def readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumb
     wb = load_workbook(filename = FolderPath)
     xlsxPowerMeasurments = wb["PowerMeausurments"]
 
-    asv=97
+    asv=99
 
     row=36
     Pin=[0]*asv
@@ -411,8 +411,9 @@ SelectedUser=[1,2,3,4]
 FileDirecotory="./"
 DateTime="01/02/2022 00:30"
 
-for i in range (1,6):
-    TestNumber=i
+for i in range (0,3):
+    i=i
+    TestNumber=13
     drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
     drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
     drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
