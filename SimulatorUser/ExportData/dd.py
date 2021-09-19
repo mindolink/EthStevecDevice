@@ -255,12 +255,13 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
 def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
 
+    let=len(UserData[0])
 
-    axs.fill_between(UserData[0],UserData[3], step="post", color="#2C71B0",alpha=0.20)
-    axs.plot(UserData[0],UserData[3],drawstyle="steps-post", color="#2C71B0", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dSr}}$'))
+    axs.fill_between(UserData[0],UserData[3], step="post", color="#4b96da",alpha=0.20)
+    axs.plot(UserData[0],UserData[3],drawstyle="steps-post", color="#4b96da", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dSr}}$'))
 
-    axs.fill_between(UserData[0],UserData[4], step="post", color="#FF4822",alpha=0.20)
-    axs.plot(UserData[0],UserData[4],drawstyle="steps-post", color="#FF4822", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dLd}}$'))
+    axs.fill_between(UserData[0],UserData[4], step="post", color="#ff5430",alpha=0.20)
+    axs.plot(UserData[0],UserData[4],drawstyle="steps-post", color="#ff5430", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{dLd}}$'))
 
     axs.fill_between(UserData[0],UserData[5], step="post", color="#14be53",alpha=0.20)
     axs.plot(UserData[0],UserData[5],drawstyle="steps-post", color="#14be53", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvSr}}$'))
@@ -268,14 +269,16 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
     axs.fill_between(UserData[0],UserData[6], step="post", color="#ffaf00",alpha=0.20)
     axs.plot(UserData[0],UserData[6],drawstyle="steps-post", color="#ffaf00", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvLd}}$'))
 
-    axs.fill_between(UserData[0],UserData[7], step="post",color="#dd37cc", alpha=0.20)
-    axs.plot(UserData[0],UserData[7],drawstyle="steps-post", color="#dd37cc", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvLd}}$'))
+    axs.fill_between(UserData[0],UserData[7], step="post",color="#f538d3", alpha=0.20)
+    axs.plot(UserData[0],UserData[7],drawstyle="steps-post", color="#f538d3", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{bAvLd}}$'))
 
     Pgrd=np.add(UserData[1],UserData[2])
 
-    axs.fill_between(UserData[0],Pgrd, step="post",color="#555555", alpha=0.18)
-    axs.plot(UserData[0],Pgrd, drawstyle="steps-post",color="#555555", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{grd}}$'))
+    axs.fill_between(UserData[0],Pgrd, step="post",color="#222222", alpha=0.18)
+    axs.plot(UserData[0],Pgrd, drawstyle="steps-post",color="#222222", alpha=1,linewidth=1.2,label=(r'$\mathrm{P_{grd}}$'))
     
+    axs.plot(UserData[0],[0]*let,color="#343232",linewidth=0.8)
+
     axs.set_xlim(UserData[0][0],UserData[0][len(UserData[0])-1])
 
     axs.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
@@ -308,6 +311,7 @@ def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
     axs.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
     axs.xaxis.set_major_locator(mdates.HourLocator(interval = 4))
     axs.yaxis.set_major_locator(MaxNLocator(integer=True))
+
     axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.2)
 
     axs.set_xlim(UserData[0][0],UserData[0][len(UserData[0])-1])
@@ -344,7 +348,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
     with plt.style.context(['science', 'grid']):
 
-        colorArray=["#2C71B0","#FF4822","#14be53","orange","#dd37cc","#555555"]
+        colorArray=["#4b96da","#ff5430","#14be53","#ffaf00","#f538d3","#222222"]
     
         fntSize=24
 
