@@ -22,7 +22,7 @@ def readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumb
     wb = load_workbook(filename = FolderPath)
     xlsxPowerMeasurments = wb["PowerMeausurments"]
 
-    asv=99
+    asv=97
 
     row=36
     Pin=[0]*asv
