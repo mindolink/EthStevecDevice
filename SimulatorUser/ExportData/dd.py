@@ -129,6 +129,10 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         handles, labels = ax4.get_legend_handles_labels()
         leg=fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.1),ncol=6,fontsize=fntSize+4,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3, frameon=False)
         leg.get_frame().set_linewidth(0.5)
+        leg_lines = leg.get_lines()
+        plt.setp(leg_lines, linewidth=5)
+
+
         fig.set_constrained_layout_pads(hspace=0.4)
 
         plt.rcParams["font.family"] = "serif"
@@ -184,6 +188,9 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         leg=fig.legend( handles, labels,loc='upper center', bbox_to_anchor=(0.5,0.1),ncol=6,fontsize=fntSize+4,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3, frameon=False)
         
         leg.get_frame().set_linewidth(0.5)
+        leg_lines = leg.get_lines()
+        plt.setp(leg_lines, linewidth=5)
+
         fig.set_constrained_layout_pads(hspace=0.4)
 
         plt.rcParams["font.family"] = "serif"
@@ -201,7 +208,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
     PowerLow=0
     PowerHigh=0
     
-    for q in range (1):
+    for q in range (4):
 
         UserNumber=ArrUserNumber[q]
         UserData=readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumber)
@@ -243,6 +250,10 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         ax.yaxis.set_tick_params(labelsize=fntSize)
         
         leg.get_frame().set_linewidth(0.5)
+        leg_lines = leg.get_lines()
+        plt.setp(leg_lines, linewidth=5)
+
+
         fig.set_constrained_layout_pads(hspace=0.4)
 
         plt.rcParams["font.family"] = "serif"
@@ -250,6 +261,9 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
 
         plt.savefig("Test "+str(TestNumber)+" EnergySystem.jpg", format="jpg",dpi=200)
+
+        leg_lines = leg.get_lines()
+        plt.setp(leg_lines, linewidth=5)
 
         #plt.show()
 
@@ -285,7 +299,7 @@ def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
     axs.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
     axs.xaxis.set_major_locator(mdates.HourLocator(interval = 2))
     
-    axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.15)
+    axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.25)
 
     axs.set_xlabel('Ura [h]',fontsize=fntSize)
     axs.set_ylabel('P [kW]',fontsize=fntSize)
@@ -320,7 +334,7 @@ def drawingPriceGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
     axs.xaxis.set_major_formatter(mdates.DateFormatter('%H'))
     axs.xaxis.set_major_locator(mdates.HourLocator(interval = 2))
     
-    axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.15)
+    axs.grid(b=True, which='major', color='#444444', linestyle='-', alpha=0.25)
 
     axs.set_xlabel('Ura [h]',fontsize=fntSize)
     axs.set_ylabel('Cena EE [¢/kWh]',fontsize=fntSize)
@@ -388,7 +402,9 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
 
 
         leg=fig.legend(loc='upper center', bbox_to_anchor=(0.5,0.11),ncol=6,fontsize=fntSize,edgecolor="black",fancybox=False,handlelength=0.9,borderpad=0.3, frameon=False)
-       
+        leg_lines = leg.get_lines()
+        plt.setp(leg_lines, linewidth=5)
+
         ax.set_xlim(Time[0],Time[len(Time)-1])
         ax.set_ylim(0.1,100)
         ax.set_ylabel('Napolnjenost baterije [\%]',fontsize=fntSize)
@@ -412,8 +428,8 @@ SelectedUser=[1,2,3,4]
 FileDirecotory="./"
 DateTime="01/02/2022 00:30"
 
-for i in range (1,2):
-    TestNumber=3030
+for i in range (1,6):
+    TestNumber=i
     drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
     drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
     drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
