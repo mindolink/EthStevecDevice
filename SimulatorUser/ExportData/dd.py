@@ -22,21 +22,23 @@ def readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumb
     wb = load_workbook(filename = FolderPath)
     xlsxPowerMeasurments = wb["PowerMeausurments"]
 
+    asv=99
+
     row=36
-    Pin=[0]*97
-    Pout=[0]*97
-    PdSr=[0]*97
-    PdLd=[0]*97
-    PbAvSr=[0]*97
-    PbAvLd=[0]*97
-    PbRqLd=[0]*97
-    IntTime=[0]*97
+    Pin=[0]*asv
+    Pout=[0]*asv
+    PdSr=[0]*asv
+    PdLd=[0]*asv
+    PbAvSr=[0]*asv
+    PbAvLd=[0]*asv
+    PbRqLd=[0]*asv
+    IntTime=[0]*asv
 
-    SOChsb=[0]*97
-    SOCcar=[0]*97
+    SOChsb=[0]*asv
+    SOCcar=[0]*asv
 
 
-    for q in range(97):
+    for q in range(asv):
         Pout[q] -= xlsxPowerMeasurments["F"+str(row+q)].value
         Pin[q] = xlsxPowerMeasurments["E"+str(row+q)].value
         PdSr[q] -= xlsxPowerMeasurments["G"+str(row+q)].value
@@ -134,7 +136,7 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
         plt.savefig("Test "+str(TestNumber)+" Price.jpg", format="jpg")
 
-        plt.show()
+        #plt.show()
 
 
 def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -189,7 +191,7 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
         plt.savefig("Test "+str(TestNumber)+" Energy4User.jpg", format="jpg")
 
-        plt.show()
+        #plt.show()
 
         
 def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserNumber):
@@ -249,7 +251,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
 
         plt.savefig("Test "+str(TestNumber)+" EnergySystem.jpg", format="jpg")
 
-        plt.show()
+        #plt.show()
 
 def drawingPowerGraph(axs,UserData,PowerLow,PowerHigh,fntSize):
 
@@ -359,17 +361,18 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
             SOCcar=Data[9]
             Time=Data[0]
             
-            if SOChsb[0]!=None:
-
-                lab="{$\mathrm{SBH_{"+str(chr(65+q))+"}"+"}"+"$}"
-                
-                ax.plot(Time,SOChsb, alpha=1,label=lab,color=colorArray[i],linewidth=1.2)
-                i+=1
             if SOCcar[0]!=None:
 
                 lab="{$\mathrm{SEV_{"+str(chr(65+q))+"}"+"}"+"$}"
 
                 ax.plot(Time,SOCcar, alpha=1,label=lab,color=colorArray[i],linewidth=1.2)
+                i+=1
+
+            if SOChsb[0]!=None:
+
+                lab="{$\mathrm{SBH_{"+str(chr(65+q))+"}"+"}"+"$}"
+                
+                ax.plot(Time,SOChsb, alpha=1,label=lab,color=colorArray[i],linewidth=1.2)
                 i+=1
 
 
@@ -396,7 +399,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
         plt.rcParams["font.serif"] = "Times New Roman"
 
         plt.savefig("Test "+str(TestNumber)+" SOC.jpg", format="jpg")
-        plt.show()
+        #plt.show()
 
 
 
@@ -404,9 +407,9 @@ SelectedUser=[1,2,3,4]
 FileDirecotory="./"
 DateTime="01/02/2022 00:30"
 
-#for i in range (1,6):
-TestNumber=3
-drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
-drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+for i in range (1,6):
+    TestNumber=i
+    drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
+    drawingPriceGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
