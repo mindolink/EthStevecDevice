@@ -138,7 +138,7 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         plt.rcParams["font.family"] = "serif"
         plt.rcParams["font.serif"] = "Times New Roman"
 
-        plt.savefig("Test "+str(TestNumber)+" Price.svg", format="svg")
+        plt.savefig("Test "+str(TestNumber)+" Price.png", format="png")
 
         #plt.show()
 
@@ -196,7 +196,7 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         plt.rcParams["font.family"] = "serif"
         plt.rcParams["font.serif"] = "Times New Roman"
 
-        plt.savefig("Test "+str(TestNumber)+" Energy4User.svg", format="svg")
+        plt.savefig("Test "+str(TestNumber)+" Energy4User.png", format="png")
 
         #plt.show()
 
@@ -208,7 +208,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
     PowerLow=0
     PowerHigh=0
     
-    for q in range (1):
+    for q in range (4):
 
         UserNumber=ArrUserNumber[q]
         UserData=readUserPowerData(FileDirecotoryUserData, TestNumber, DatetTimeTest,UserNumber)
@@ -260,7 +260,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         plt.rcParams["font.serif"] = "Times New Roman"
 
 
-        plt.savefig("Test "+str(TestNumber)+" EnergySystem.svg", format="svg")
+        plt.savefig("Test "+str(TestNumber)+" EnergySystem.png", format="png")
 
         leg_lines = leg.get_lines()
         plt.setp(leg_lines, linewidth=5)
@@ -419,7 +419,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
         plt.rcParams["font.family"] = "serif"
         plt.rcParams["font.serif"] = "Times New Roman"
 
-        plt.savefig("Test "+str(TestNumber)+" SOC.svg", format="svg")
+        plt.savefig("Test "+str(TestNumber)+" SOC.png", format="png")
         #plt.show()
 
 
