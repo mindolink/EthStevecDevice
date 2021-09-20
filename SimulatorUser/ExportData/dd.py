@@ -138,7 +138,7 @@ def drawingPriceGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         plt.rcParams["font.family"] = "serif"
         plt.rcParams["font.serif"] = "Times New Roman"
 
-        plt.savefig("Test "+str(TestNumber)+" Price.jpg", format="jpg",dpi=400)
+        plt.savefig("Test "+str(TestNumber)+" Price.svg", format="svg")
 
         #plt.show()
 
@@ -196,7 +196,7 @@ def drawingPowerGraph4Users(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         plt.rcParams["font.family"] = "serif"
         plt.rcParams["font.serif"] = "Times New Roman"
 
-        plt.savefig("Test "+str(TestNumber)+" Energy4User.jpg", format="jpg",dpi=400)
+        plt.savefig("Test "+str(TestNumber)+" Energy4User.svg", format="svg")
 
         #plt.show()
 
@@ -260,7 +260,7 @@ def drawingPowerSystemGraph(FileDirecotoryUserData, TestNumber, DatetTimeTest, A
         plt.rcParams["font.serif"] = "Times New Roman"
 
 
-        plt.savefig("Test "+str(TestNumber)+" EnergySystem.jpg", format="jpg",dpi=400)
+        plt.savefig("Test "+str(TestNumber)+" EnergySystem.svg", format="svg")
 
         leg_lines = leg.get_lines()
         plt.setp(leg_lines, linewidth=5)
@@ -419,7 +419,7 @@ def drawingSOCGraaph(FileDirecotoryUserData, TestNumber, DatetTimeTest, ArrUserN
         plt.rcParams["font.family"] = "serif"
         plt.rcParams["font.serif"] = "Times New Roman"
 
-        plt.savefig("Test "+str(TestNumber)+" SOC.jpg", format="jpg",dpi=500)
+        plt.savefig("Test "+str(TestNumber)+" SOC.svg", format="svg")
         #plt.show()
 
 
@@ -428,8 +428,8 @@ SelectedUser=[1,2,3,4]
 FileDirecotory="./"
 DateTime="01/02/2022 00:30"
 
-for i in range (1,2):
-    TestNumber=3030
+for i in range (1,6):
+    TestNumber=i
     drawingPowerGraph4Users(FileDirecotory, TestNumber, DateTime,SelectedUser)
     drawingPowerSystemGraph(FileDirecotory, TestNumber, DateTime,SelectedUser)
     drawingSOCGraaph(FileDirecotory, TestNumber, DateTime,SelectedUser)
